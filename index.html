@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>V-SEC</title>
-    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="icon" href="image.png" type="image/png">
     
     <!-- Preconnect for faster font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,6 +92,16 @@
         /* SVG Filter */
         .logo-filter {
             filter: invert(53%) sepia(98%) saturate(3015%) hue-rotate(205deg) brightness(101%) contrast(102%);
+        }
+
+        /* Folder icon (inline SVG) */
+        .folder-icon {
+            width: 1rem;
+            height: 1rem;
+            vertical-align: -0.125rem;
+            display: inline-block;
+            fill: currentColor;
+            color: inherit;
         }
 
         /* Custom Scrollbar */
@@ -251,18 +261,6 @@
             opacity: 1; 
         }
 
-        /* Recovery Animation Screen */
-        #transition-anim-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000;
-            z-index: 100002;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Fira Code', monospace;
-        }
-
         /* Intro Text Screen */
         #intro-text-screen {
             position: fixed;
@@ -335,14 +333,13 @@
             <p class="text-[var(--term-text-muted)] font-mono text-xs md:text-sm leading-relaxed tracking-wide mb-6">
                 This project was born for Creators, VTubers, and users who want a basic understanding of online privacy.<br><br>
                 The guide is, and always will be, free. Support is appreciated to improve it and gather feedback.
-                Thank you for reading. Stay safe along your journey, and beware who you talk with.<br><br>
-                <span class="text-[var(--term-blue-glow)] font-bold tracking-widest uppercase">V-Sec × OutOfTune</span><br>
-                <span class="text-[10px] opacity-40 mt-1 block">(Play Hacknet btw :3)</span>
+                Thank you for reading. Stay safe along your journey, and beware who you talk with.
+               <span class="text-[10px] opacity-40 mt-1 block">(Play Hacknet btw :3)</span>
             </p>
 
             <div class="w-full bg-[rgba(239,68,68,0.05)] border border-red-900/50 p-4 mb-8 text-left rounded text-xs text-gray-400">
-                <span class="text-red-500 font-bold uppercase block mb-1">SYSTEM WARNING // DISCLAIMER:</span> 
-                Security is an ongoing process, not a final destination. Review your hardware, update your software, and stay vigilant. No single tool or guide guarantees absolute anonymity.
+                <span class="text-red-500 font-bold uppercase block mb-1">ANTI-SCAM WARNING // OPEN SOURCE:</span> 
+                V-Sec is a 100% free, open-source project. If anyone charged you money to access this guide, you have been scammed. Please demand an immediate refund and report the seller.
             </div>
 
             <!-- Clickable text instead of a button -->
@@ -364,14 +361,12 @@
         <img src="Vseclogo.svg" alt="V-Sec Logo" class="h-32 md:h-48" style="filter: invert(1);" onerror="this.style.display='none'">
     </div>
 
-    <!-- Phase 3: Rebuilding Animation -->
-    <div id="transition-anim-screen">
-        <div class="flex flex-col items-center">
-            <div class="text-[var(--term-blue-glow)] text-xs tracking-[0.3em] font-bold mb-3 uppercase animate-pulse">Recovering Databanks...</div>
-            <div class="w-64 h-1.5 border border-[#1e293b] p-[1px] relative overflow-hidden bg-[#050810]">
-                <div id="anim-progress-bar" class="h-full bg-[var(--term-blue-glow)] w-0"></div>
-            </div>
-        </div>
+    <!-- Phase 3: OutOfTune Text Intro -->
+    <div id="intro-text-screen">
+        <p id="intro-text-p" class="text-[var(--term-text)] font-mono text-sm md:text-base max-w-2xl leading-relaxed tracking-wide opacity-0 transition-opacity duration-500">
+            Brought by OutOfTune
+            <br><br>
+        </p>
     </div>
 
     <!-- Phase 4: Main OS Interface -->
@@ -419,7 +414,12 @@
                         <span class="opacity-50">01</span> THREAT_LANDSCAPE.md
                     </button>
 
-                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁 BASIC_OPSEC/</div>
+                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">
+                        <svg class="folder-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M 4 4 C 2.9057453 4 2 4.9057453 2 6 L 2 18 C 2 19.094255 2.9057453 20 4 20 L 20 20 C 21.094255 20 22 19.094255 22 18 L 22 8 C 22 6.9057453 21.094255 6 20 6 L 12 6 L 10 4 L 4 4 z M 4 6 L 9.171875 6 L 11.171875 8 L 20 8 L 20 18 L 4 18 L 4 6 z"/>
+                        </svg>
+                        BASIC_OPSEC/
+                    </div>
                     <button onclick="nav('basic_email')" id="btn-basic_email" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
                         ├─ email_comms.sh
                     </button>
@@ -442,7 +442,12 @@
                         └─ IRL_logistics.sh
                     </button>
 
-                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁 TECH_NETWORK/</div>
+                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">
+                        <svg class="folder-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M 4 4 C 2.9057453 4 2 4.9057453 2 6 L 2 18 C 2 19.094255 2.9057453 20 4 20 L 20 20 C 21.094255 20 22 19.094255 22 18 L 22 8 C 22 6.9057453 21.094255 6 20 6 L 12 6 L 10 4 L 4 4 z M 4 6 L 9.171875 6 L 11.171875 8 L 20 8 L 20 18 L 4 18 L 4 6 z"/>
+                        </svg>
+                        TECH_NETWORK/
+                    </div>
                     <button onclick="nav('tech_firewall')" id="btn-tech_firewall" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
                         ├─ firewall.cfg
                     </button>
@@ -462,15 +467,28 @@
                         └─ self_osint.cfg
                     </button>
 
-                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁 THREAT_INTEL/</div>
+                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">
+                        <svg class="folder-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M 4 4 C 2.9057453 4 2 4.9057453 2 6 L 2 18 C 2 19.094255 2.9057453 20 4 20 L 20 20 C 21.094255 20 22 19.094255 22 18 L 22 8 C 22 6.9057453 21.094255 6 20 6 L 12 6 L 10 4 L 4 4 z M 4 6 L 9.171875 6 L 11.171875 8 L 20 8 L 20 18 L 4 18 L 4 6 z"/>
+                        </svg>
+                        THREAT_INTEL/
+                    </div>
                     <button onclick="nav('intel_toolkit')" id="btn-intel_toolkit" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
                         ├─ attacker_tools.sh
+                    </button>
+                    <button onclick="nav('intel_ai')" id="btn-intel_ai" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ ai_llm_threats.sh
                     </button>
                     <button onclick="nav('intel_recon')" id="btn-intel_recon" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
                         └─ stream_recon.sh
                     </button>
 
-                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁 LEGAL_DEFENSE/</div>
+                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">
+                        <svg class="folder-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M 4 4 C 2.9057453 4 2 4.9057453 2 6 L 2 18 C 2 19.094255 2.9057453 20 4 20 L 20 20 C 21.094255 20 22 19.094255 22 18 L 22 8 C 22 6.9057453 21.094255 6 20 6 L 12 6 L 10 4 L 4 4 z M 4 6 L 9.171875 6 L 11.171875 8 L 20 8 L 20 18 L 4 18 L 4 6 z"/>
+                        </svg>
+                        LEGAL_DEFENSE/
+                    </div>
                     <button onclick="nav('legal_gdpr')" id="btn-legal_gdpr" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
                         ├─ gdpr_weaponization.sh
                     </button>
@@ -506,35 +524,50 @@
                     <span id="cmd-output" class="cursor text-white glow-text">cat ./README.md</span>
                 </div>
 
-                <!-- SECTION: INTRO -->
+                <!-- SECTION: INTRO (README) -->
                 <section id="sec-intro" class="section-content animate-fade-in">
                     <div class="max-w-4xl">
-                        <h2 class="text-3xl font-bold mb-6 glow-text text-white">The Complete Creator Security Guide</h2>
-                        <p class="text-lg text-gray-300 mb-6 leading-relaxed">
-                            Welcome to <strong>V-Sec</strong>. Whether you are a VTuber, an IRL streamer, or a traditional content creator, your anonymity is your armor. The internet is built to share data, track hardware fingerprints, and correlate identities. Maintaining boundaries requires deliberate, systematic effort.
+                        <h2 class="text-3xl font-bold mb-6 glow-text text-white">V-Sec: The Master Guide</h2>
+                        
+                        <div class="border-l-4 border-[var(--term-blue-glow)] pl-4 py-2 mb-8 bg-[rgba(0,225,255,0.05)]">
+                            <p class="text-lg text-gray-300 leading-relaxed">
+                                Welcome to <strong>V-Sec</strong>. This framework is designed to protect digital creators, VTubers, and streamers from the realities of the modern internet. Your anonymity is your armor, but the internet is intrinsically designed to link, correlate, and expose data. 
+                            </p>
+                        </div>
+
+                        <p class="text-[var(--term-text-muted)] mb-6 leading-relaxed">
+                            Maintaining boundaries between your online persona and your real-life identity is not about paranoia; it is about <strong>Operational Security (OpSec)</strong>. This guide operates on the principle of <em>Defense in Depth</em>—if one layer of security fails (like accidentally leaking an email address on stream), the next layer (an encrypted alias) prevents a complete breach.
                         </p>
+
                         <div class="border border-blue-800 bg-term-panel p-6 rounded-sm mt-8">
-                            <h3 class="text-xl mb-4 text-blue-500 border-b border-blue-800 pb-2">DIRECTORY STRUCTURE:</h3>
-                            <ul class="space-y-4 text-gray-300">
+                            <h3 class="text-xl mb-4 text-blue-500 border-b border-blue-800 pb-2">HOW TO USE THIS SYSTEM:</h3>
+                            <ul class="space-y-6 text-gray-300">
                                 <li class="flex items-start">
-                                    <span class="text-blue-500 mr-3">[0]</span>
+                                    <span class="text-[#00e1ff] mr-3 font-bold">1.</span>
                                     <div>
-                                        <strong class="text-white block">THREAT_LANDSCAPE.md:</strong> 
-                                        Understanding the unique psychological and technical attacks modern creators face.
+                                        <strong class="text-white block tracking-wider">BASIC_OPSEC/</strong> 
+                                        <span class="text-sm text-gray-400">The absolute fundamentals. Even if you aren't tech-savvy, you must implement these habits. It covers isolating your browser fingerprints, locking down your physical mail, safely handling sponsorships/money, and stream hygiene.</span>
                                     </div>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-blue-500 mr-3">[1]</span>
+                                    <span class="text-[#00e1ff] mr-3 font-bold">2.</span>
                                     <div>
-                                        <strong class="text-white block">BASIC_OPSEC.sh:</strong> 
-                                        Deep dive into identity isolation, browser fingerprinting, financial anonymity, and streaming hygiene.
+                                        <strong class="text-white block tracking-wider">TECH_NETWORK/</strong> 
+                                        <span class="text-sm text-gray-400">For advanced users seeking enterprise-grade resilience. We abandon consumer routers here to build self-hosted hardware firewalls (OPNSense), isolate traffic with VLANs, and establish Site-to-Site VPN tunnels to scrub DDoS attacks.</span>
                                     </div>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-blue-500 mr-3">[2]</span>
+                                    <span class="text-[#00e1ff] mr-3 font-bold">3.</span>
                                     <div>
-                                        <strong class="text-white block">TECH_NETWORK.cfg:</strong> 
-                                        Advanced self-hosted infrastructure. OPNSense firewall hardening, VLAN segmentation, and Site-to-Site WireGuard tunnels.
+                                        <strong class="text-white block tracking-wider">THREAT_INTEL/</strong> 
+                                        <span class="text-sm text-gray-400">Know your enemy. This section breaks down the exact methodologies, OSINT tools, and AI algorithms that malicious actors use to dox creators, allowing you to counter them proactively.</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-[#00e1ff] mr-3 font-bold">4.</span>
+                                    <div>
+                                        <strong class="text-white block tracking-wider">LEGAL_DEFENSE/</strong> 
+                                        <span class="text-sm text-gray-400">When digital defense fails, you must respond physically. Learn how to weaponize privacy laws (GDPR/CCPA) against data brokers and how to properly interface with local law enforcement to prevent swatting.</span>
                                     </div>
                                 </li>
                             </ul>
@@ -902,6 +935,18 @@
                                 </div>
                             </li>
                             <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Breach Databases (Credential Stuffing):</strong> Attackers don't need to hack you directly if a website you used 8 years ago gets hacked. Search your old aliases on <a href="https://haveibeenpwned.com/" target="_blank" class="cyber-link">HaveIBeenPwned</a> or <a href="https://dehashed.com/" target="_blank" class="cyber-link">DeHashed</a>.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You registered a Tumblr account in 2012 with the same username as your current Twitch channel. In 2013, Tumblr was breached. An attacker buys the breached database, searches your username, finds the plain-text password you used, and tries it on your current email.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">The Family Weakness:</strong> Attackers know your OpSec is strong, so they target your family instead. Ensure your parents and siblings have private social media.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> Your OpSec is flawless. However, an attacker finds your mother's public Facebook page. She proudly posted a photo of you, tagged your real name, and captioned it: "So proud of my child graduating from [Specific University] in [Specific City]." You are now completely exposed through someone else's metadata.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
                                 <strong class="text-[#00e1ff] block mb-1">Data Broker Takedowns:</strong> Use services like <a href="https://joindeleteme.com/" target="_blank" class="cyber-link">DeleteMe</a>, <a href="https://incogni.com/" target="_blank" class="cyber-link">Incogni</a>, or <a href="https://www.kanary.com/" target="_blank" class="cyber-link">Kanary</a> to aggressively issue legal takedown requests.
                                 <div class="scenario-box">
                                     <strong>Scenario:</strong> You bought a house or registered to vote. LexisNexis scraped the county property records and sold it to Whitepages. A stalker who found your real name now just has to Google it to find your home address. Automated data broker removal forces these companies to scrub your records constantly.
@@ -947,10 +992,46 @@
                     </div>
                 </section>
 
+                <!-- SECTION: INTEL - AI/LLM THREATS -->
+                <section id="sec-intel_ai" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. AI & LLM Threat Vectors</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            The rapid advancement of Artificial Intelligence has handed enterprise-level data aggregation and deepfake tools directly to hobbyist stalkers.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Voice Cloning & Social Engineering:</strong> Attackers no longer need to sound like you. They only need a few seconds of clean stream audio to train an AI model (like ElevenLabs).
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> An attacker feeds 10 seconds of your VOD into a voice cloner. They use VoIP to spoof your mother's phone number, call your elderly grandparents, and play an AI-generated message in your exact voice claiming you are in jail and need them to wire money, or provide your social security number to "the authorities".
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">LLM Data Scraping (The "Lore" Problem):</strong> Large Language Models (like ChatGPT or Perplexity) aggressively scrape forums, wikis, and 4chan. They memorize deleted information and can bridge connections between your aliases if prompted correctly.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> 5 years ago, a troll posted your real name on KiwiFarms. The thread was eventually deleted. Today, a user asks an AI: <em>"What are the previous identities or controversies associated with [Your VTuber Name]?"</em> The AI accesses its historical training data and outputs your real name, bypassing the fact that the original post was deleted.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Generative AI Un-cropping & De-blurring:</strong> Attackers use tools like Photoshop's Generative Fill or Waifu2x to restore destroyed data.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You post a photo of a new keyboard on your desk, but blur out the reflection in the monitor. An attacker uses AI de-blurring algorithms to restructure the pixels, successfully reading the reflection of a shipping label sitting behind your keyboard.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Automated Spear Phishing:</strong> Attackers use LLMs to write hyper-specific, flawlessly localized phishing emails based on your stream transcripts.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> An attacker feeds an AI a transcript of your latest stream where you mentioned struggling with your taxes. The AI generates a highly realistic, legally intimidating email claiming to be from the IRS or an accountant, tricking you into clicking a malicious link that you otherwise would have ignored.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
                 <!-- SECTION: INTEL - RECON -->
                 <section id="sec-intel_recon" class="section-content hidden animate-fade-in">
                     <div class="max-w-4xl">
-                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. Stream Reconnaissance Tactics</h2>
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">3. Stream Reconnaissance Tactics</h2>
                         <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
                             Attackers listen to streams differently than fans. They take meticulous notes to piece together a psychological and geographical profile.
                         </p>
@@ -1025,12 +1106,13 @@
                     </div>
                 </section>
 
-                <!-- Footer Note -->
-                <div class="mt-12 p-5 border border-[#00e1ff]/40 bg-[rgba(0,225,255,0.05)] rounded shadow-[0_0_20px_rgba(0,225,255,0.15)] text-sm text-[#93c5fd] tracking-wide relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1.5 h-full bg-[#00e1ff] shadow-[0_0_10px_#00e1ff]"></div>
-                    <span class="text-white font-bold uppercase mr-2 tracking-widest text-[#00e1ff] drop-shadow-[0_0_5px_rgba(0,225,255,0.8)]">SYSTEM WARNING // DISCLAIMER:</span> 
-                    Security is an ongoing process, not a final destination. Review your hardware, update your stuff, stay vigilant. No single tool or guide guarantees absolute anonymity. Stay safe. <br><br>
-                    <span class="text-[#00e1ff] font-semibold opacity-80 uppercase tracking-widest text-xs">V-Sec, brought by OutOfTune</span>
+                <div class="max-w-4xl">
+                    <!-- Footer Note -->
+                    <div class="mt-12 p-5 border border-[#00e1ff]/40 bg-[rgba(0,225,255,0.05)] rounded shadow-[0_0_20px_rgba(0,225,255,0.15)] text-sm text-[#93c5fd] tracking-wide relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1.5 h-full bg-[#00e1ff] shadow-[0_0_10px_#00e1ff]"></div>
+                        <span class="text-white font-bold uppercase mr-2 tracking-widest text-[#00e1ff] drop-shadow-[0_0_5px_rgba(0,225,255,0.8)]">SYSTEM WARNING // DISCLAIMER:</span> 
+                        Security is an ongoing process, not a final destination. Review your hardware, update your stuff, stay vigilant. No single tool or guide guarantees absolute anonymity. Stay safe.
+                    </div>
                 </div>
 
             </main>
@@ -1199,27 +1281,32 @@
                 logoSplash.style.display = 'flex';
                 
                 setTimeout(() => {
-                    // Hard cut to animation
+                    // Hard cut to Intro Text Screen
                     logoSplash.style.display = 'none';
-                    playTransitionAnim();
+                    showIntroText();
                 }, 1500); 
             }, 3000); 
         }
 
-        function playTransitionAnim() {
-            const animScreen = document.getElementById('transition-anim-screen');
-            const bar = document.getElementById('anim-progress-bar');
-            animScreen.style.display = 'flex';
-
+        function showIntroText() {
+            const introScreen = document.getElementById('intro-text-screen');
+            introScreen.style.display = 'flex';
+            
+            // Fade text in slowly
             setTimeout(() => {
-                bar.style.transition = 'width 1.5s cubic-bezier(0.1, 0.7, 1.0, 0.1)';
-                bar.style.width = '100%';
-            }, 50);
+                document.getElementById('intro-text-p').style.opacity = '1';
+            }, 100);
 
+            // Hold text for 6 seconds
             setTimeout(() => {
-                animScreen.style.display = 'none';
-                bootOS();
-            }, 1800);
+                document.getElementById('intro-text-p').style.opacity = '0';
+                
+                // Wait for text to fade out before booting OS
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                    bootOS();
+                }, 1000); 
+            }, 6000);
         }
 
         function bootOS() {
@@ -1262,6 +1349,7 @@
             'tech_dns': 'nano /etc/opnsense/dns_sinkhole.cfg',
             'tech_osint': 'nano /etc/opnsense/self_osint.cfg',
             'intel_toolkit': './scripts/analyze_toolkit.sh',
+            'intel_ai': './scripts/analyze_ai_threats.sh',
             'intel_recon': './scripts/stream_recon.sh',
             'legal_gdpr': 'sudo ./legal/gdpr_weaponization.sh',
             'legal_action': 'sudo ./legal/dmca_and_police.sh'
