@@ -1,112 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>V-SEC</title>
-    <link rel="icon" href="logo.png" type="image/png">
-
+    <link rel="icon" href="image.png" type="image/png">
+    
     <!-- Preconnect for faster font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    
     <!-- Replaced slow Tailwind JS CDN with fast pre-compiled CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
+    
     <style>
         :root {
             /* Bluerra Color Palette */
-            --term-blue: #4d88ff;
-            /* Primary Accent */
-            --term-blue-glow: #00e1ff;
-            /* Secondary Cyan Glow */
-            --term-blue-dim: #1e293b;
-            /* Borders and muted elements */
-            --term-bg: #0b0f19;
-            /* Darkest background (Sidebar/Header) */
-            --term-panel: #1a2235;
-            /* Raised elements (Accordions) */
-            --term-main: #111625;
-            /* Main content background */
-            --term-text: #e2e8f0;
-            /* Primary text */
-            --term-text-muted: #8b9aae;
-            /* Secondary text */
+            --term-blue: #4d88ff;      /* Primary Accent */
+            --term-blue-glow: #00e1ff; /* Secondary Cyan Glow */
+            --term-blue-dim: #1e293b;  /* Borders and muted elements */
+            --term-bg: #0b0f19;        /* Darkest background (Sidebar/Header) */
+            --term-panel: #1a2235;     /* Raised elements (Accordions) */
+            --term-main: #111625;      /* Main content background */
+            --term-text: #e2e8f0;      /* Primary text */
+            --term-text-muted: #8b9aae;/* Secondary text */
         }
 
-        /* Custom utility classes to replace arbitrary Tailwind values */
-        .bg-term-bg {
-            background-color: var(--term-bg) !important;
-        }
+        /* Custom utility classes */
+        .bg-term-bg { background-color: var(--term-bg) !important; }
+        .bg-term-panel { background-color: var(--term-panel) !important; }
+        .bg-term-main { background-color: var(--term-main) !important; }
+        
+        /* Overriding Tailwind specific colors */
+        .text-blue-400, .text-blue-500, .text-blue-600 { color: var(--term-blue) !important; }
+        .text-blue-700, .text-blue-800 { color: #5c759e !important; }
+        .bg-blue-500 { background-color: var(--term-blue) !important; }
+        .hover\:bg-blue-500:hover { background-color: var(--term-blue) !important; color: var(--term-bg) !important; }
+        .border-blue-500 { border-color: var(--term-blue) !important; }
+        .border-blue-800, .border-blue-900 { border-color: var(--term-blue-dim) !important; }
+        .text-white { color: var(--term-text) !important; }
+        .text-gray-300 { color: var(--term-text) !important; }
+        .text-gray-400 { color: var(--term-text-muted) !important; }
 
-        .bg-term-panel {
-            background-color: var(--term-panel) !important;
-        }
-
-        .bg-term-main {
-            background-color: var(--term-main) !important;
-        }
-
-        /* Overriding Tailwind specific colors to match Bluerra */
-        .text-blue-400,
-        .text-blue-500,
-        .text-blue-600 {
-            color: var(--term-blue) !important;
-        }
-
-        .text-blue-700,
-        .text-blue-800 {
-            color: #5c759e !important;
-        }
-
-        .bg-blue-500 {
-            background-color: var(--term-blue) !important;
-        }
-
-        .hover\:bg-blue-500:hover {
-            background-color: var(--term-blue) !important;
-            color: var(--term-bg) !important;
-        }
-
-        .border-blue-500 {
-            border-color: var(--term-blue) !important;
-        }
-
-        .border-blue-800,
-        .border-blue-900 {
-            border-color: var(--term-blue-dim) !important;
-        }
-
-        .text-white {
-            color: var(--term-text) !important;
-        }
-
-        .text-gray-300 {
-            color: var(--term-text) !important;
-        }
-
-        .text-gray-400 {
-            color: var(--term-text-muted) !important;
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.2s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
+        .animate-fade-in { animation: fadeIn 0.15s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         body {
-            background-color: var(--term-bg);
+            background-color: #000; 
             color: var(--term-blue);
             font-family: 'Fira Code', monospace;
             margin: 0;
@@ -121,13 +62,21 @@
             content: " ";
             display: block;
             position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            z-index: 50;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.06) 50%);
+            background-size: 100% 3px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        /* CRT Vignette Edge Shadow */
+        body::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%);
+            z-index: 9998;
             pointer-events: none;
         }
 
@@ -140,7 +89,7 @@
             box-shadow: 0 0 15px rgba(77, 136, 255, 0.15);
         }
 
-        /* SVG Filter to turn black logo into Bluerra Blue (#4d88ff) */
+        /* SVG Filter */
         .logo-filter {
             filter: invert(53%) sepia(98%) saturate(3015%) hue-rotate(205deg) brightness(101%) contrast(102%);
         }
@@ -149,16 +98,13 @@
         ::-webkit-scrollbar {
             width: 8px;
         }
-
         ::-webkit-scrollbar-track {
             background: var(--term-panel);
             border-left: 1px solid var(--term-blue-dim);
         }
-
         ::-webkit-scrollbar-thumb {
             background: #2a3a5c;
         }
-
         ::-webkit-scrollbar-thumb:hover {
             background: var(--term-blue);
         }
@@ -173,9 +119,7 @@
             padding-bottom: 1px;
             position: relative;
             z-index: 60;
-            /* Above scanlines for clicking */
         }
-
         .cyber-link:hover {
             background-color: rgba(0, 225, 255, 0.15);
             text-shadow: 0 0 8px var(--term-blue-glow);
@@ -192,7 +136,6 @@
             color: var(--term-text-muted);
             border-radius: 0 4px 4px 0;
         }
-
         .scenario-box strong {
             color: #8b9aae;
             font-weight: 600;
@@ -206,18 +149,16 @@
             border: 1px solid var(--term-blue-dim);
             background: transparent;
             color: var(--term-blue);
-            transition: all 0.2s ease-in-out;
+            transition: all 0.1s ease-in-out;
             position: relative;
             overflow: hidden;
             z-index: 60;
         }
-
         .nav-btn:hover {
             background: rgba(77, 136, 255, 0.1);
             border-color: var(--term-blue);
             box-shadow: inset 0 0 10px rgba(77, 136, 255, 0.2);
         }
-
         .nav-btn.active {
             background: var(--term-blue);
             color: var(--term-bg);
@@ -225,999 +166,876 @@
             box-shadow: 0 0 15px rgba(77, 136, 255, 0.5);
         }
 
+        /* Volume Slider Styles */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+            height: 4px;
+            width: 80px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: var(--term-blue-dim);
+            border-radius: 2px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 12px;
+            width: 6px;
+            border-radius: 1px;
+            background: var(--term-blue-glow);
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -4px;
+        }
+
         /* Blinking Cursor */
         .cursor::after {
             content: "█";
             animation: blink 1s step-start infinite;
         }
-
         @keyframes blink {
-            50% {
-                opacity: 0;
-            }
+            50% { opacity: 0; }
         }
 
         .main-container {
-            height: calc(100vh - 4.5rem);
+            height: calc(100vh - 4.5rem); 
         }
-
-        /* Utility to ensure links remain clickable above absolute pseudo-elements */
+        
         .section-content {
             position: relative;
             z-index: 60;
         }
+
+        /* --- PRE-OS SEQUENCES --- */
+        #init-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            z-index: 100005;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+            padding: 1rem;
+        }
+
+        #boot-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            color: #fff;
+            z-index: 100000;
+            display: none; 
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            line-height: 1.1;
+            overflow: hidden;
+        }
+        
+        #logo-splash {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000; 
+            z-index: 100001;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 1; 
+        }
+
+        /* Recovery Animation Screen */
+        #transition-anim-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            z-index: 100002;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Intro Text Screen */
+        #intro-text-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            z-index: 100003;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            opacity: 1;
+        }
+
+        /* The actual OS wrapper - hidden initially */
+        #os-interface {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            background-color: var(--term-bg);
+        }
+
+        /* Hacknet Recovery Flicker Animations */
+        .panel-hide { opacity: 0; }
+        
+        .panel-blink {
+            opacity: 0;
+            animation: panel-flicker 0.4s ease-out forwards;
+        }
+        
+        /* Staggered Boot Delays */
+        .delay-1 { animation-delay: 0.0s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.4s; }
+
+        @keyframes panel-flicker {
+            0% { opacity: 0; filter: brightness(2) contrast(150%); }
+            10% { opacity: 1; }
+            20% { opacity: 0; }
+            30% { opacity: 1; }
+            50% { opacity: 0.2; }
+            100% { opacity: 1; filter: brightness(1) contrast(100%); }
+        }
+
+        /* Slow Spinning Globe */
+        .spin-slow {
+            animation: spin 40s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
-
 <body>
 
-    <!-- Header -->
-    <header
-        class="h-16 border-b border-blue-800 flex items-center justify-between px-6 bg-term-bg z-10 border-glow py-3 relative">
-        <div class="flex items-center gap-4">
-            <img src="Vseclogo.svg" alt="V-Sec Logo" class="h-8 md:h-10 logo-filter"
-                onerror="this.style.display='none'">
-            <div class="hidden sm:flex items-center gap-3">
-                <div class="w-3 h-3 rounded-full bg-blue-500 animate-pulse"></div>
+    <!-- Audio Element for BGM -->
+    <audio id="bgm-audio" loop preload="auto">
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Phase 0: The Entry Gate / Disclaimer -->
+    <div id="init-screen">
+        <div class="max-w-2xl w-full border border-[var(--term-blue-dim)] bg-[#050810]/95 p-6 md:p-10 rounded shadow-[0_0_30px_rgba(0,225,255,0.05)] text-center flex flex-col items-center relative overflow-hidden z-[100006]">
+            
+            <img src="Vseclogo.svg" alt="V-Sec Logo" class="h-16 md:h-20 mb-6 logo-filter" onerror="this.style.display='none'">
+            
+            <h1 class="text-xl md:text-2xl font-bold text-white glow-text mb-4">Welcome to V-Sec.</h1>
+            
+            <p class="text-[var(--term-text-muted)] font-mono text-xs md:text-sm leading-relaxed tracking-wide mb-6">
+                This project was born for Creators, VTubers, and users who want a basic understanding of online privacy.<br><br>
+                The guide is, and always will be, free. Support is appreciated to improve it and gather feedback.
+                Thank you for reading. Stay safe along your journey, and beware who you talk with.<br><br>
+                <span class="text-[var(--term-blue-glow)] font-bold tracking-widest uppercase">V-Sec × OutOfTune</span><br>
+                <span class="text-[10px] opacity-40 mt-1 block">(Play Hacknet btw :3)</span>
+            </p>
+
+            <div class="w-full bg-[rgba(239,68,68,0.05)] border border-red-900/50 p-4 mb-8 text-left rounded text-xs text-gray-400">
+                <span class="text-red-500 font-bold uppercase block mb-1">SYSTEM WARNING // DISCLAIMER:</span> 
+                Security is an ongoing process, not a final destination. Review your hardware, update your software, and stay vigilant. No single tool or guide guarantees absolute anonymity.
+            </div>
+
+            <!-- Clickable text instead of a button -->
+            <div id="agree-btn" class="cursor-pointer text-[var(--term-blue-glow)] hover:text-white hover:drop-shadow-[0_0_8px_var(--term-blue-glow)] transition-all duration-300 uppercase tracking-[0.2em] text-sm font-bold mt-2 select-none">
+                Take me to V-Sec
             </div>
         </div>
-        <div class="hidden md:flex gap-4 text-sm text-blue-800">
-            <span>SYS_DEF: <span class="text-blue-500">MAXIMUM</span></span>
-            <span>UPLINK: <span class="text-blue-500">ENCRYPTED</span></span>
+    </div>
+
+    <!-- Phase 1: Linux Boot Sequence -->
+    <div id="boot-screen">
+        <div id="boot-log"></div>
+        <div class="cursor mt-1 text-[#e2e8f0]" id="boot-cursor"></div>
+    </div>
+
+    <!-- Phase 2: Cinematic Logo Splash (Black background, White logo) -->
+    <div id="logo-splash">
+        <!-- CSS Invert filter makes the black SVG stark white. NO GLOW. -->
+        <img src="Vseclogo.svg" alt="V-Sec Logo" class="h-32 md:h-48" style="filter: invert(1);" onerror="this.style.display='none'">
+    </div>
+
+    <!-- Phase 3: Rebuilding Animation -->
+    <div id="transition-anim-screen">
+        <div class="flex flex-col items-center">
+            <div class="text-[var(--term-blue-glow)] text-xs tracking-[0.3em] font-bold mb-3 uppercase animate-pulse">Recovering Databanks...</div>
+            <div class="w-64 h-1.5 border border-[#1e293b] p-[1px] relative overflow-hidden bg-[#050810]">
+                <div id="anim-progress-bar" class="h-full bg-[var(--term-blue-glow)] w-0"></div>
+            </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Main Content Area -->
-    <div class="main-container flex flex-col md:flex-row w-full z-10">
+    <!-- Phase 4: Main OS Interface -->
+    <div id="os-interface">
+        
+        <header id="os-header" class="panel-hide h-16 border-b border-blue-800 flex items-center justify-between px-4 md:px-6 bg-term-bg z-20 border-glow py-3 relative">
+            <div class="flex items-center gap-4">
+                <img src="Vseclogo.svg" alt="V-Sec Logo" class="h-8 md:h-10 logo-filter" onerror="this.style.display='none'">
+                <div class="hidden sm:flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-blue-500 animate-pulse"></div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 md:gap-6 text-sm text-blue-800">
+                <!-- Audio Controls (SVG Based) -->
+                <div class="flex items-center gap-2 relative z-[70]">
+                    <div id="mute-icon" class="cursor-pointer text-[var(--term-blue-glow)] hover:text-white transition-colors" onclick="toggleMute()" title="Toggle Audio">
+                        <!-- Default Icon: Volume High -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                    </div>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+                </div>
+                
+                <div class="hidden md:flex gap-4">
+                    <span>SYS_DEF: <span class="text-blue-500">MAXIMUM</span></span>
+                    <span>UPLINK: <span class="text-blue-500">ENCRYPTED</span></span>
+                </div>
+            </div>
+        </header>
 
-        <!-- Sidebar Navigation -->
-        <aside
-            class="w-full md:w-80 border-b md:border-b-0 md:border-r border-blue-900 bg-term-bg flex flex-col p-4 overflow-y-auto relative z-20">
-            <div class="text-xs text-blue-700 mb-4 border-b border-blue-900 pb-2">
-                root@vsec:~# ls -la /docs/
+        <!-- Main Content Area -->
+        <div class="main-container flex flex-col md:flex-row w-full z-10 relative">
+            
+            <!-- Sidebar Navigation -->
+            <aside id="os-sidebar" class="panel-hide w-full md:w-80 border-b md:border-b-0 md:border-r border-blue-900 bg-term-bg flex flex-col p-4 overflow-y-auto relative z-30">
+                <div class="text-xs text-blue-700 mb-4 border-b border-blue-900 pb-2">
+                    root@vsec:~# ls -la /docs/
+                </div>
+                
+                <nav class="flex flex-col gap-1">
+                    <button onclick="nav('intro')" id="btn-intro" class="nav-btn active text-left px-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        <span class="opacity-50">00</span> README.md
+                    </button>
+                    <button onclick="nav('intro_theory')" id="btn-intro_theory" class="nav-btn text-left px-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        <span class="opacity-50">01</span> THREAT_LANDSCAPE.md
+                    </button>
+
+                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁 BASIC_OPSEC/</div>
+                    <button onclick="nav('basic_email')" id="btn-basic_email" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ email_comms.sh
+                    </button>
+                    <button onclick="nav('basic_browser')" id="btn-basic_browser" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ browser_nav.sh
+                    </button>
+                    <button onclick="nav('basic_creds')" id="btn-basic_creds" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ credentials.sh
+                    </button>
+                    <button onclick="nav('basic_stream')" id="btn-basic_stream" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ stream_hygiene.sh
+                    </button>
+                    <button onclick="nav('basic_finance')" id="btn-basic_finance" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ financial.sh
+                    </button>
+                    <button onclick="nav('basic_social')" id="btn-basic_social" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ social_media.sh
+                    </button>
+                    <button onclick="nav('basic_hardware')" id="btn-basic_hardware" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        └─ IRL_logistics.sh
+                    </button>
+
+                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁 TECH_NETWORK/</div>
+                    <button onclick="nav('tech_firewall')" id="btn-tech_firewall" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ firewall.cfg
+                    </button>
+                    <button onclick="nav('tech_ids')" id="btn-tech_ids" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ ids_ips.cfg
+                    </button>
+                    <button onclick="nav('tech_vlans')" id="btn-tech_vlans" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ vlans.cfg
+                    </button>
+                    <button onclick="nav('tech_vpn')" id="btn-tech_vpn" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ vpn_ddos.cfg
+                    </button>
+                    <button onclick="nav('tech_dns')" id="btn-tech_dns" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ dns_sinkhole.cfg
+                    </button>
+                    <button onclick="nav('tech_osint')" id="btn-tech_osint" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        └─ self_osint.cfg
+                    </button>
+
+                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁 THREAT_INTEL/</div>
+                    <button onclick="nav('intel_toolkit')" id="btn-intel_toolkit" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ attacker_tools.sh
+                    </button>
+                    <button onclick="nav('intel_recon')" id="btn-intel_recon" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        └─ stream_recon.sh
+                    </button>
+
+                    <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁 LEGAL_DEFENSE/</div>
+                    <button onclick="nav('legal_gdpr')" id="btn-legal_gdpr" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        ├─ gdpr_weaponization.sh
+                    </button>
+                    <button onclick="nav('legal_action')" id="btn-legal_action" class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
+                        └─ dmca_and_police.sh
+                    </button>
+                </nav>
+
+                <div class="mt-auto pt-8 text-xs text-blue-800 opacity-70 hidden md:block">
+                    <p>LAST_LOGIN: <span id="time-display"></span></p>
+                </div>
+            </aside>
+
+            <!-- Background Spinning Globe -->
+            <div class="absolute right-[-10%] md:right-[5%] top-1/2 transform -translate-y-1/2 z-0 opacity-[0.04] text-[var(--term-blue-glow)] pointer-events-none hidden lg:block overflow-hidden">
+                <svg class="spin-slow w-[600px] h-[600px]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.3">
+                    <circle cx="50" cy="50" r="48" />
+                    <ellipse cx="50" cy="50" rx="48" ry="15" />
+                    <ellipse cx="50" cy="50" rx="48" ry="30" />
+                    <ellipse cx="50" cy="50" rx="15" ry="48" />
+                    <ellipse cx="50" cy="50" rx="30" ry="48" />
+                    <line x1="2" y1="50" x2="98" y2="50" />
+                    <line x1="50" y1="2" x2="50" y2="98" />
+                </svg>
             </div>
 
-            <nav class="flex flex-col gap-1">
-                <button onclick="nav('intro')" id="btn-intro"
-                    class="nav-btn active text-left px-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    <span class="opacity-50">00</span> README.md
-                </button>
-                <button onclick="nav('intro_theory')" id="btn-intro_theory"
-                    class="nav-btn text-left px-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    <span class="opacity-50">01</span> THREAT_LANDSCAPE.md
-                </button>
+            <!-- Content Display -->
+            <main id="os-main" class="panel-hide flex-1 bg-term-main p-4 md:p-8 overflow-y-auto relative z-20">
+                
+                <!-- Command Output Header -->
+                <div class="mb-8 font-mono text-sm border-b border-blue-900 pb-2">
+                    <span class="text-blue-500">root@vsec</span><span class="text-gray-400">:~#</span> 
+                    <span id="cmd-output" class="cursor text-white glow-text">cat ./README.md</span>
+                </div>
 
-                <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁
-                    BASIC_OPSEC/</div>
-                <button onclick="nav('basic_email')" id="btn-basic_email"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ email_comms.sh
-                </button>
-                <button onclick="nav('basic_browser')" id="btn-basic_browser"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ browser_nav.sh
-                </button>
-                <button onclick="nav('basic_creds')" id="btn-basic_creds"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ credentials.sh
-                </button>
-                <button onclick="nav('basic_stream')" id="btn-basic_stream"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ stream_hygiene.sh
-                </button>
-                <button onclick="nav('basic_finance')" id="btn-basic_finance"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ financial.sh
-                </button>
-                <button onclick="nav('basic_social')" id="btn-basic_social"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ social_media.sh
-                </button>
-                <button onclick="nav('basic_hardware')" id="btn-basic_hardware"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    └─ IRL_logistics.sh
-                </button>
+                <!-- SECTION: INTRO -->
+                <section id="sec-intro" class="section-content animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-3xl font-bold mb-6 glow-text text-white">The Complete Creator Security Guide</h2>
+                        <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                            Welcome to <strong>V-Sec</strong>. Whether you are a VTuber, an IRL streamer, or a traditional content creator, your anonymity is your armor. The internet is built to share data, track hardware fingerprints, and correlate identities. Maintaining boundaries requires deliberate, systematic effort.
+                        </p>
+                        <div class="border border-blue-800 bg-term-panel p-6 rounded-sm mt-8">
+                            <h3 class="text-xl mb-4 text-blue-500 border-b border-blue-800 pb-2">DIRECTORY STRUCTURE:</h3>
+                            <ul class="space-y-4 text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-3">[0]</span>
+                                    <div>
+                                        <strong class="text-white block">THREAT_LANDSCAPE.md:</strong> 
+                                        Understanding the unique psychological and technical attacks modern creators face.
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-3">[1]</span>
+                                    <div>
+                                        <strong class="text-white block">BASIC_OPSEC.sh:</strong> 
+                                        Deep dive into identity isolation, browser fingerprinting, financial anonymity, and streaming hygiene.
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-3">[2]</span>
+                                    <div>
+                                        <strong class="text-white block">TECH_NETWORK.cfg:</strong> 
+                                        Advanced self-hosted infrastructure. OPNSense firewall hardening, VLAN segmentation, and Site-to-Site WireGuard tunnels.
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
 
-                <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁
-                    TECH_NETWORK/</div>
-                <button onclick="nav('tech_firewall')" id="btn-tech_firewall"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ firewall.cfg
-                </button>
-                <button onclick="nav('tech_ids')" id="btn-tech_ids"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ ids_ips.cfg
-                </button>
-                <button onclick="nav('tech_vlans')" id="btn-tech_vlans"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ vlans.cfg
-                </button>
-                <button onclick="nav('tech_vpn')" id="btn-tech_vpn"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ vpn_ddos.cfg
-                </button>
-                <button onclick="nav('tech_dns')" id="btn-tech_dns"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ dns_sinkhole.cfg
-                </button>
-                <button onclick="nav('tech_osint')" id="btn-tech_osint"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    └─ self_osint.cfg
-                </button>
-
-                <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁
-                    THREAT_INTEL/</div>
-                <button onclick="nav('intel_toolkit')" id="btn-intel_toolkit"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ attacker_tools.sh
-                </button>
-                <button onclick="nav('intel_recon')" id="btn-intel_recon"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    └─ stream_recon.sh
-                </button>
-
-                <div class="mt-4 text-xs text-blue-500 font-bold px-4 mb-1 border-b border-blue-900 pb-1">📁
-                    LEGAL_DEFENSE/</div>
-                <button onclick="nav('legal_gdpr')" id="btn-legal_gdpr"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    ├─ gdpr_weaponization.sh
-                </button>
-                <button onclick="nav('legal_action')" id="btn-legal_action"
-                    class="nav-btn text-left pl-8 pr-4 py-2 text-sm font-semibold flex items-center gap-2">
-                    └─ dmca_and_police.sh
-                </button>
-            </nav>
-
-            <div class="mt-auto pt-8 text-xs text-blue-800 opacity-70 hidden md:block">
-                <p>SYS_MSG: Anonymity is armor.</p>
-                <p>LAST_LOGIN: <span id="time-display"></span></p>
-            </div>
-        </aside>
-
-        <!-- Content Display -->
-        <main class="flex-1 bg-term-main p-4 md:p-8 overflow-y-auto relative z-20" id="terminal-screen">
-
-            <!-- Command Output Header -->
-            <div class="mb-8 font-mono text-sm border-b border-blue-900 pb-2">
-                <span class="text-blue-500">root@vsec</span><span class="text-gray-400">:~#</span>
-                <span id="cmd-output" class="cursor text-white glow-text">cat ./README.md</span>
-            </div>
-
-            <!-- SECTION: INTRO -->
-            <section id="sec-intro" class="section-content animate-fade-in">
-                <div class="max-w-3xl">
-                    <h2 class="text-3xl font-bold mb-6 glow-text text-white">The Complete VTuber Security Guide</h2>
-                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
-                        Welcome to <strong>V-Sec</strong>. As a VTuber, your anonymity is your armor. But the internet
-                        is built to share data, track hardware fingerprints, and correlate identities. Maintaining
-                        anonymity requires deliberate, systematic effort.
-                    </p>
-                    <div class="border border-blue-800 bg-term-panel p-6 rounded-sm mt-8">
-                        <h3 class="text-xl mb-4 text-blue-500 border-b border-blue-800 pb-2">DIRECTORY STRUCTURE:</h3>
-                        <ul class="space-y-4 text-gray-300">
-                            <li class="flex items-start">
-                                <span class="text-blue-500 mr-3">[0]</span>
-                                <div>
-                                    <strong class="text-white block">THREAT_LANDSCAPE.md:</strong>
-                                    Understanding the unique psychological and technical attacks VTubers face.
+                <!-- SECTION: INTRO - THEORY/THREAT MODEL -->
+                <section id="sec-intro_theory" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">0. The Threat Landscape</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Standard cybersecurity focuses on protecting credit cards and passwords. Creator security is entirely different—it is about protecting a persona from psychological warfare and physical stalking.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">The Asymmetric Threat:</strong> You are defending against highly motivated individuals with infinite free time. They are not looking to steal your bank account; they are looking to solve a puzzle. The reward is destroying the illusion of your boundary.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A malicious actor creates an automated script to cross-reference the exact time your stream goes live with the activity status of thousands of public Discord accounts. If your personal IRL Discord account consistently goes "Do Not Disturb" at the exact second the Creator goes live over a period of 30 days, they have found your real identity through metadata correlation alone.
                                 </div>
                             </li>
-                            <li class="flex items-start">
-                                <span class="text-blue-500 mr-3">[1]</span>
-                                <div>
-                                    <strong class="text-white block">BASIC_OPSEC.sh:</strong>
-                                    Deep dive into identity isolation, browser fingerprinting, credential management,
-                                    financial anonymity, and stream hygiene.
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Facial Recognition (IRL Creators):</strong> If you show your face on stream, your threat model is vastly different from VTubers. Your face is a biological fingerprint that cannot be changed or hidden.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You use a facecam while streaming. An attacker takes a screenshot of your stream and uploads it to PimEyes or Clearview AI. The AI reverse-searches your face against billions of images on the internet, discovering a 10-year-old Facebook album uploaded by your aunt that contains your full name, hometown, and high school graduation details.
                                 </div>
                             </li>
-                            <li class="flex items-start">
-                                <span class="text-blue-500 mr-3">[2]</span>
-                                <div>
-                                    <strong class="text-white block">TECH_NETWORK.cfg:</strong>
-                                    Advanced self-hosted infrastructure. OPNSense firewall hardening, VLAN segmentation,
-                                    IDS/IPS, and Site-to-Site WireGuard tunnels.
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Perfect Compartmentalization:</strong> The golden rule of V-Sec is complete, physical and digital separation. The data associated with the "Real You" must never exist on the same hardware, browser, or account as the "Creator You".
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A creator uses the same Windows login for college work and streaming. During a stream, a Windows background notification pops up saying: <em>"OneDrive Sync Failed: C:\Users\JaneSmith\University\..."</em>. The real name is broadcasted to 5,000 viewers instantly.
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <div class="mt-8 flex gap-4">
-                        <button onclick="nav('intro_theory')"
-                            class="border border-blue-500 px-6 py-2 text-blue-500 hover:bg-blue-500 hover:text-white transition-colors font-bold">INITIATE
-                            BOOT SEQUENCE</button>
+                </section>
+
+                <!-- SECTION: BASIC - EMAIL -->
+                <section id="sec-basic_email" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">1. Email & Communications Isolation</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Your personal email is tied to data breaches, your phone number, and your real name. It must never touch your Creator accounts.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Encrypted Providers:</strong> Create a fresh, dedicated email using a privacy-respecting provider like <a href="https://proton.me/" target="_blank" class="cyber-link">ProtonMail</a> or <a href="https://tuta.com/" target="_blank" class="cyber-link">Tuta</a>. Do NOT use Gmail for your root recovery accounts.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You use your personal Gmail to register for a game you stream. That game suffers a data breach. Attackers plug your leaked Gmail into a password recovery tool, see the masked recovery phone number (ending in -45), cross-reference it with a leak from a local pizza chain you ordered from IRL, and instantly uncover your home address.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Email Aliasing:</strong> Never give out your root email. Use services like <a href="https://simplelogin.io/" target="_blank" class="cyber-link">SimpleLogin</a> or <a href="https://addy.io/" target="_blank" class="cyber-link">Addy.io</a> to generate unique, burnable email addresses for every service (e.g., <code>twitter_vsec@alias.com</code>). If an alias is spammed or breached, you simply turn it off.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You put a business email in your Twitter bio. A malicious actor signs that email up for thousands of newsletters, causing a Denial of Service attack on your inbox. If you used an alias, you simply click "Deactivate" in SimpleLogin, and the spam instantly stops without affecting your main accounts.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Burner Phone Numbers:</strong> SMS 2FA is fundamentally broken and vulnerable to SIM swapping. If a service forces you to provide a phone number, use a VoIP number like <a href="https://mysudo.com/" target="_blank" class="cyber-link">MySudo</a>, <a href="https://voice.google.com/" target="_blank" class="cyber-link">Google Voice</a> (on a burner account), or buy a cheap prepaid SIM card like <a href="https://www.mintmobile.com/" target="_blank" class="cyber-link">Mint Mobile</a> paid for in cash.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> An attacker pays an underground service $50 to bribe a corrupt telecom employee to transfer your real phone number to the attacker's SIM card. The attacker then hits "Forgot Password" on your Twitter, receives the SMS 2FA code, and steals your account permanently.
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+                </section>
+
+                <!-- SECTION: BASIC - BROWSER -->
+                <section id="sec-basic_browser" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. Browser & Web Navigation</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Browsers track hardware IDs, canvas fingerprints, and cookies. If you check your personal banking and Creator Twitter in the same browser, ad networks will link the two identities.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Browser Separation:</strong> Use entirely different browsers. Personal life on Chrome/Edge, Creator life on a hardened browser like <a href="https://brave.com/" target="_blank" class="cyber-link">Brave</a>, <a href="https://mullvad.net/en/browser" target="_blank" class="cyber-link">Mullvad Browser</a>, or <a href="https://librewolf.net/" target="_blank" class="cyber-link">LibreWolf</a>.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You accidentally click a link a viewer sends in chat while on your personal Chrome profile. A hidden script doesn't just log your IP, but it logs your hardware canvas fingerprint and existing session cookies. An ad network correlates your Twitch session with your personal Amazon shopping cart session, bridging the gap between your identities.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Multi-Account Containers:</strong> If using Firefox, install the <em>Multi-Account Containers</em> extension. Keep your YouTube, Twitter, and Email strictly separated into isolated color-coded tabs so cookies cannot cross-pollinate.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You log into your Twitter. Without containers, Twitter's background trackers follow you as you open a new tab and log into your personal university portal, linking the metadata of both accounts on their backend servers.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Essential Extensions:</strong> Install <a href="https://ublockorigin.com/" target="_blank" class="cyber-link">uBlock Origin</a> (blocks tracking scripts and malicious IP grabbers) and CanvasBlocker (fakes your hardware fingerprint).
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A malicious actor buys a seemingly innocent ad slot on a forum you visit. The ad contains a zero-pixel image that executes a script to map your local network. uBlock Origin terminates the script before the ad even renders on your screen.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Search Engines:</strong> Stop using Google for Stream-related searches. Use <a href="https://duckduckgo.com/" target="_blank" class="cyber-link">DuckDuckGo</a> or Brave Search to prevent search history correlation.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You Google a very specific, local medical clinic, and then later Google "How to set up OBS studio". Google's profile algorithm combines these interests. Later, a targeted YouTube ad pops up on your stream showing the local clinic, revealing your city to your viewers.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: BASIC - CREDS -->
+                <section id="sec-basic_creds" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">3. Account & Credential Management</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Your passwords and auth tokens are the final line of defense against account takeovers.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Password Managers:</strong> NEVER use the password manager built into your browser. Use a dedicated, zero-knowledge manager like <a href="https://bitwarden.com/" target="_blank" class="cyber-link">Bitwarden</a>, <a href="https://1password.com/" target="_blank" class="cyber-link">1Password</a>, or <a href="https://keepassxc.org/" target="_blank" class="cyber-link">KeePassXC</a>.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You reuse your personal Spotify password for your Twitter account. Spotify suffers a data breach. Attackers employ "credential stuffing bots" that automatically test leaked passwords against thousands of sites. Your Twitter is instantly hijacked.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Hardware Security Keys:</strong> The ultimate defense against phishing. Buy two <a href="https://www.yubico.com/" target="_blank" class="cyber-link">YubiKeys</a> (one primary, one backup stored in a safe). Register them to your Google, Twitter, and Password Manager.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You receive a highly convincing email pretending to be a Twitch sponsorship. You click the link, enter your password, and type in your 6-digit authenticator code. The attacker's bot instantly forwards those to the real Twitch, bypassing your 2FA. A YubiKey stops this completely because the physical key cryptographically verifies the actual domain URL, rejecting the fake site automatically.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Authenticator Apps (TOTP):</strong> For sites that don't support YubiKeys, use an offline authenticator app like <a href="https://getaegis.app/" target="_blank" class="cyber-link">Aegis</a> (Android) or <a href="https://ente.io/auth/" target="_blank" class="cyber-link">Ente Auth</a> (Cross-platform).
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You use Authy for 2FA. Authy's cloud infrastructure is breached by hackers, exposing millions of 2FA seeds. Attackers clone your tokens and gain access to your accounts. Offline managers like Aegis ensure the private keys never leave your physical device.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: BASIC - STREAM -->
+                <section id="sec-basic_stream" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">4. Stream Environment & Content Hygiene</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            A momentary slip-up on stream can reveal your IP, real name, or location.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Dedicated Windows User:</strong> Create a separate Windows User Account strictly for streaming. Do not log into your personal Microsoft account.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> While streaming, your mother sends you an iMessage or WhatsApp text saying, "Hi honey, I left the lasagna in the fridge. Love, Mom." A desktop notification pops up over your game, revealing your real first name to thousands of people.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">OBS Window Capture ONLY:</strong> Never use "Display Capture." Always capture specific application windows.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You are playing a horror game on "Display Capture" and the game crashes to the desktop. Your desktop background is a photo of you and your significant other, and your tax return PDF is sitting on the desktop. The entire stream sees it. Window Capture ensures they only see a black screen upon crash.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">IRL Cameras & Reflections (FleshTubers):</strong> If you use a facecam, be hyper-aware of your background. Dedicated attackers can geolocate your exact street using "Geoguessr" tactics based on the style of street signs, license plates, or tree lines visible out your window. Keep blinds closed. Additionally, beware of reflections in your glasses, glossy monitors, or even spoons. Modern HD webcams capture enough detail for attackers to read mail reflected in your eyes.
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">VTube Studio & Avatar Software Leaks:</strong> Most VTubers use VTube Studio or VSeeFace. When interacting with these programs (loading models, adding props), they often open the Windows File Explorer. Always use Spout2 capture or strictly configure OBS to hide the VTS UI. Never load new assets live.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You click "Load Custom Item" in VTube Studio mid-stream. A Windows File Explorer window pops up. The file path at the top reads <code>C:\Users\FirstnameLastname\Downloads\VTuberAssets\</code>. You have just broadcasted your legal name to your entire audience.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Scrubbing Metadata (EXIF):</strong> Every picture taken with a smartphone contains hidden GPS coordinates. Before posting "handcams" or pet photos, run them through tools like <a href="https://exiftool.org/" target="_blank" class="cyber-link">ExifTool</a> or mobile apps like <a href="https://f-droid.org/en/packages/de.kaffesorn.imagepipe/" target="_blank" class="cyber-link">ImagePipe</a> to strip the metadata.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You take a cute photo of your cat to post on your Twitter account to celebrate 10k followers. You forget to scrub the EXIF data. The raw image file contains the exact longitude and latitude of your bedroom where the photo was taken, leading stalkers directly to your front door.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: BASIC - FINANCE -->
+                <section id="sec-basic_finance" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">5. Financial Anonymity & Real World</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Handling money is the fastest way to leak your real name.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">The PayPal Trap (CRITICAL):</strong> Standard PayPal accounts reveal your legal name. Upgrading to a PayPal Business Account allows you to use a DBA, but is still risky without an LLC.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You commission an artist and pay them via a personal PayPal account. PayPal displays "Payment received from Jane Doe". The artist now has your legal name. If they get hacked, or turn out to be malicious, your identity is exposed.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Virtual Credit Cards:</strong> Never use your real debit card to pay for assets. Use <a href="https://privacy.com/" target="_blank" class="cyber-link">Privacy.com</a> (US) or <a href="https://www.revolut.com/" target="_blank" class="cyber-link">Revolut</a> (EU) to generate burner cards with fake billing names.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You buy a cheap asset from a shady third-party marketplace using your real credit card. The site's database is compromised. Not only are your card details stolen, but your billing name and home address are dumped on a public hacker forum.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Crypto & Monero:</strong> For extreme anonymity in commissions, cryptocurrency can be used. If privacy is paramount, utilize <a href="https://www.getmonero.org/" target="_blank" class="cyber-link">Monero (XMR)</a>, which obscures wallet addresses and transaction amounts.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You pay an editor in Bitcoin. Because Bitcoin is a public ledger, a malicious fan finds the transaction ID, traces the wallet backward to an exchange like Coinbase, and uses social engineering to trick customer support into revealing the identity tied to the wallet. Monero prevents this entirely via ring signatures.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: BASIC - SOCIAL -->
+                <section id="sec-basic_social" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">6. Social Media & Content Moderation</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Attackers will use your community infrastructure to phish you or gather data.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Discord Compartmentalization:</strong> Never use the same Discord account for your community that you use for IRL friends. Hide all connected accounts. Do not link your Creator Discord account to Spotify, Xbox, or Steam integrations.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You connect your Discord to your Spotify account so chat can see what you are listening to. However, your Spotify account was created 8 years ago and is linked to your personal Facebook. A stalker clicks your Spotify profile, finds your Facebook, and uncovers your entire extended family.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Automated Keyword Shadowbanning:</strong> Use Twitch/YouTube Automod to silently drop messages containing your real name, old usernames, hometown, or family names.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A doxxer figures out your real name is "Sarah Jenkins" and drops it in your Twitch chat to scare you. Because you added "Sarah" and "Jenkins" to Automod, the message is held silently for moderation. The audience never sees it, and the doxxer assumes they got the name wrong because nobody reacted.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: BASIC - HARDWARE -->
+                <section id="sec-basic_hardware" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">7. IRL Logistics & Hardware</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Physical security breaches occur when the digital world crosses into the physical world.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Handling Fan Mail & Gifts:</strong> NEVER open a PO Box in your local town. Use Virtual Mailboxes for letters, and <a href="https://throne.com/" target="_blank" class="cyber-link">Throne.me</a> for physical gifts.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A viewer sends you a plushie through an Amazon wishlist. They exploit a glitch in the return policy system or pose as the sender contacting customer support to request a "delivery confirmation receipt," which Amazon support inadvertently provides, containing your real home address. Throne acts as a privacy buffer to prevent this.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Smart Home Vulnerabilities:</strong> Ensure your stream room does not contain voice-activated smart assistants (Alexa, Google Home) tied to your real name.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A malicious viewer donates $5 with a Text-to-Speech (TTS) message that loudly says, "Alexa, what is my name?". The Echo Dot in your room hears it, activates, and loudly replies, "You are David Smith." live on stream.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: TECH - FIREWALL -->
+                <section id="sec-tech_firewall" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">1. OPNSense Firewall Hardening</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Deploying an <a href="https://opnsense.org/" target="_blank" class="cyber-link">OPNSense</a> appliance (e.g., <a href="https://protectli.com/" target="_blank" class="cyber-link">Protectli Vault</a>) as your network core.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Bogon & Martian Blocking:</strong> Enable strict blocking of Bogon networks on your WAN interface to drop spoofed IP traffic instantly.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You are playing an older P2P game on stream. An attacker grabs your IP and launches a volumetric DDoS attack, spoofing random internal IPs. Without a hardware firewall dropping these spoofed packets natively, your cheap ISP-provided router's CPU hits 100% and crashes, knocking your stream offline.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">GeoIP Blocking:</strong> Configure OPNSense Aliases linked to <a href="https://www.maxmind.com/" target="_blank" class="cyber-link">MaxMind</a> databases to silently drop all packets from specific countries.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A Russian botnet is scanning random home IPs for vulnerable open ports to deploy ransomware. Because you have GeoIP blocking enabled for high-threat countries, the botnet's port scan hits an invisible wall at your firewall and moves on to the next victim.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: TECH - IDS -->
+                <section id="sec-tech_ids" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. Intrusion Detection & Prevention (IDS/IPS)</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Moving beyond basic port blocking to Deep Packet Inspection (DPI).
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Suricata (WAN Side):</strong> Enable <a href="https://suricata.io/" target="_blank" class="cyber-link">Suricata</a> in IPS mode on your WAN.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> An attacker attempts to exploit a known vulnerability in a service you run. Suricata analyzes the actual payload inside the packet, matches it against the Emerging Threats database, and drops the connection instantly before it reaches the vulnerable application.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Zenarmor (LAN Side):</strong> Install the <a href="https://www.zenarmor.com/" target="_blank" class="cyber-link">Zenarmor</a> Next-Generation Firewall plugin to inspect Layer 7 (Application Layer) traffic.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You download a seemingly innocent asset (like a new stream overlay widget) that secretly contains a trojan. When executed, the trojan attempts to connect to an attacker's command-and-control server. Zenarmor detects the unauthorized layer-7 outbound connection, kills the process network access, and alerts you.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: TECH - VLANS -->
+                <section id="sec-tech_vlans" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">3. Network Segmentation (VLANs)</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            The "4-Zone Rule." If an attacker breaches a smart lightbulb, they shouldn't be able to reach your streaming PC.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">VLAN Segmentation Logic:</strong> Isolate Stream Rig, Personal Devices, and IoT into separate virtual networks.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> Your roommate downloads a sketchy file, or a hacker finds an exploit in your cheap smart fridge. Because they share the same "flat" network as your streaming PC, the attacker pivots from the fridge directly into your unprotected Windows file shares. VLANs isolate the fridge so it physically cannot route traffic to your streaming rig.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: TECH - VPN -->
+                <section id="sec-tech_vpn" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">4. VPN Tunnels & DDoS Mitigation</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Standard VPNs introduce too much lag for competitive gaming and can be bypassed. We build our own.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Site-to-Site WireGuard:</strong> Rent a cheap VPS from <a href="https://us.ovhcloud.com/" target="_blank" class="cyber-link">OVH</a> or <a href="https://www.linode.com/" target="_blank" class="cyber-link">Linode</a> and configure OPNSense to create a persistent <a href="https://www.wireguard.com/" target="_blank" class="cyber-link">WireGuard</a> tunnel. Route only high-risk game traffic through it.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You stream a highly competitive game where IP pulling is common. You route your game traffic through the WireGuard tunnel to an OVH VPS. When an angry opponent boots your IP, they are actually attacking the OVH data center, which scrubs the 500Gbps attack effortlessly while your home network remains totally unaffected.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: TECH - DNS -->
+                <section id="sec-tech_dns" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">5. DNS Sinkholing & Encryption</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Preventing accidental leaks via chat links or background telemetry.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Network-Level Ad Blocking:</strong> Route all DNS requests through <a href="https://adguard.com/en/adguard-home/overview.html" target="_blank" class="cyber-link">AdGuard Home</a> or <a href="https://pi-hole.net/" target="_blank" class="cyber-link">Pi-Hole</a>. Use aggressive blocklists.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A viewer links an image in your Discord that is actually a disguised IP logger hosted on a known tracking domain. Because your entire network's DNS requests are filtered through Pi-Hole with an aggressive blocklist, the DNS request to the logger fails to resolve, protecting your IP without you doing a thing.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: TECH - OSINT -->
+                <section id="sec-tech_osint" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">6. Self-OSINT & Threat Modeling</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            To defend yourself, you must think like an attacker. Regularly try to dox yourself.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Sherlock & OSINT Framework:</strong> Run the Python tool <a href="https://github.com/sherlock-project/sherlock" target="_blank" class="cyber-link">Sherlock</a> against your usernames.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You used your Creator name to register a Neopets account 10 years ago. Sherlock finds it. You realize that Neopets account has your real birthday and location listed publicly, allowing you to delete it before an attacker finds it.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Data Broker Takedowns:</strong> Use services like <a href="https://joindeleteme.com/" target="_blank" class="cyber-link">DeleteMe</a>, <a href="https://incogni.com/" target="_blank" class="cyber-link">Incogni</a>, or <a href="https://www.kanary.com/" target="_blank" class="cyber-link">Kanary</a> to aggressively issue legal takedown requests.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You bought a house or registered to vote. LexisNexis scraped the county property records and sold it to Whitepages. A stalker who found your real name now just has to Google it to find your home address. Automated data broker removal forces these companies to scrub your records constantly.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: INTEL - TOOLKIT -->
+                <section id="sec-intel_toolkit" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">1. The Attacker's Toolkit (OSINT)</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            To defend yourself, you must know what tools malicious actors (who refer to themselves as "researchers") use to track you.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Advanced Reverse Image Search:</strong> Attackers use <a href="https://yandex.com/images/" target="_blank" class="cyber-link">Yandex</a> and specialized anime/art searchers like <a href="https://saucenao.com/" target="_blank" class="cyber-link">SauceNAO</a>, <a href="https://iqdb.org/" target="_blank" class="cyber-link">IQDB</a>, and <a href="https://trace.moe/" target="_blank" class="cyber-link">Trace.moe</a>.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You post a photo of a coffee cup on your personal private Instagram, and later post a very similar photo of your desk setup on your public Twitter. An attacker uses Yandex's terrifyingly good AI image matching to connect the wood grain pattern of your desk and the specific coffee cup, linking your two accounts.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Image Upscaling:</strong> Attackers run blurry leaked thumbnails through AI upscalers like <a href="http://waifu2x.udp.jp/" target="_blank" class="cyber-link">Waifu2x</a> to enhance the image enough for facial recognition to trigger.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You catch a 1-second reflection of your face in a spoon on stream. The resolution is too low for human eyes to make out features. An attacker runs the frame through Waifu2x, restores the facial geometry, and plugs it into facial recognition software to find your real Facebook page.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Username Enumeration:</strong> Attackers use tools like <a href="https://whatsmyname.app/" target="_blank" class="cyber-link">WhatsMyName.app</a> to instantly scan hundreds of websites to find linked personal accounts.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You used a unique handle for your online account. WhatsMyName discovers that the exact same handle was used on a niche knitting forum in 2012, where you introduced yourself with your real first and last name.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Rapid Archiving:</strong> Attackers use <a href="https://www.httrack.com/" target="_blank" class="cyber-link">HTTrack</a> to scrape and archive your entire profile locally before you can hit delete.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You accidentally tweet a photo showing a piece of mail. You realize your mistake and delete the tweet 30 seconds later. However, an attacker has a script running that instantly downloaded the image the millisecond it went live. The data is compromised permanently.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: INTEL - RECON -->
+                <section id="sec-intel_recon" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. Stream Reconnaissance Tactics</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Attackers listen to streams differently than fans. They take meticulous notes to piece together a psychological and geographical profile.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Data Points of Interest:</strong> Attackers specifically listen for: Pet names, offline occupations, funerals/deaths, local news stories, and specific conventions you attended IRL. They log this data using apps like <a href="https://simplenote.com/" target="_blank" class="cyber-link">Simplenote</a>.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> During your debut stream, you casually mention that your high school's mascot was a very specific, rare animal, and that a massive thunderstorm just rolled in. An attacker uses WolframAlpha to cross-reference historical weather data from that exact time with a list of US high school mascots, instantly pinpointing your childhood town.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Defeating the "Fudge":</strong> Many creators "fudge" or alter stories to protect themselves. Attackers write down your story, wait months, and see if you retell it. If the details change, they know you are hiding a vulnerability.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You claim you live in New York, but later complain about a 100-degree heatwave in November. Attackers flag the discrepancy, realize New York is a cover story, and begin analyzing your sleep schedule to calculate your true timezone (likely Australia or South America).
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Visual Profiling:</strong> Attackers use rapid screenshot tools like <a href="https://flameshot.org/" target="_blank" class="cyber-link">Flameshot</a> to capture and crop any momentary visual leaks.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> You accidentally Alt-Tab out of your game for a fraction of a second. The stream software captures a blur of your desktop. A watcher using Flameshot captures that exact frame, zooms in on the bottom right corner, and reads the local weather widget on your Windows taskbar.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: LEGAL - GDPR -->
+                <section id="sec-legal_gdpr" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">1. GDPR Weaponization & Privacy Law</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            Data privacy laws are your most powerful legal tools to force data brokers, scrapers, and malicious archive sites to delete your information.
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">The EU GDPR:</strong> If you are an EU citizen, or if the platform storing your data operates in the EU, you are protected by the <a href="https://gdpr.eu/" target="_blank" class="cyber-link">GDPR</a>.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A malicious drama wiki hosts a page detailing your real name and old high school photos. Since their server is hosted by a company in Germany, you send the host a formal GDPR Article 17 Right to Erasure request. Facing the threat of a €20 million fine from EU regulators, the host deletes the page immediately.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Enforcing Removals:</strong> Do not just ask nicely. Use templates from services like <a href="https://yourdigitalrights.org/" target="_blank" class="cyber-link">YourDigitalRights.org</a> to send legally binding, intimidating deletion notices.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> A US-based data broker refuses to remove your address, claiming public record exemption. You send a legally formatted CCPA/CPRA deletion demand on formal letterhead. The broker's automated legal compliance system flags the risk of a lawsuit and automatically purges your record.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION: LEGAL - ACTION -->
+                <section id="sec-legal_action" class="section-content hidden animate-fade-in">
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. DMCA, Police & Legal Counsel</h2>
+                        <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
+                            When OSINT and network security fail, you must transition to physical and legal defense mechanisms. 
+                        </p>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">The DMCA Dox Vector:</strong> Filing a DMCA takedown against stolen art or a doxxing site is dangerous. Standard DMCA forms require your legal name and address, which are published on the <a href="https://lumendatabase.org/" target="_blank" class="cyber-link">Lumen Database</a>.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> An art thief steals your VTuber model. You use a generic online form to submit a DMCA takedown to Twitter. Twitter complies, but legally forwards your full name, home address, and phone number (which you provided in the DMCA form) directly to the art thief, completely doxxing yourself to a malicious actor.
+                                </div>
+                            </li>
+                            <li class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
+                                <strong class="text-[#00e1ff] block mb-1">Anti-Swatting Protocol:</strong> Proactively contact your local police precinct's non-emergency line to place an "Anti-Swatting Flag" on your address.
+                                <div class="scenario-box">
+                                    <strong>Scenario:</strong> An attacker figures out your address and calls your local police department, claiming there is a hostage situation at your house. Because you previously set up an anti-swatting flag, the 911 dispatcher sees the warning note, calls your personal cell phone to verify your safety, and sends a single cruiser to check rather than a heavily armed SWAT team breaking down your door.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Footer Note -->
+                <div class="mt-12 p-5 border border-[#00e1ff]/40 bg-[rgba(0,225,255,0.05)] rounded shadow-[0_0_20px_rgba(0,225,255,0.15)] text-sm text-[#93c5fd] tracking-wide relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-[#00e1ff] shadow-[0_0_10px_#00e1ff]"></div>
+                    <span class="text-white font-bold uppercase mr-2 tracking-widest text-[#00e1ff] drop-shadow-[0_0_5px_rgba(0,225,255,0.8)]">SYSTEM WARNING // DISCLAIMER:</span> 
+                    Security is an ongoing process, not a final destination. Review your hardware, update your stuff, stay vigilant. No single tool or guide guarantees absolute anonymity. Stay safe. <br><br>
+                    <span class="text-[#00e1ff] font-semibold opacity-80 uppercase tracking-widest text-xs">V-Sec, brought by OutOfTune</span>
                 </div>
-            </section>
 
-            <!-- SECTION: INTRO - THEORY/THREAT MODEL -->
-            <section id="sec-intro_theory" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">0. The Threat Landscape</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Standard cybersecurity focuses on protecting credit cards and passwords. VTuber security is
-                        entirely different—it is about protecting a persona from psychological warfare and physical
-                        stalking.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">The Asymmetric Threat:</strong> You are defending
-                            against highly motivated individuals with infinite free time. They are not looking to steal
-                            your bank account; they are looking to solve a puzzle. The reward is destroying the illusion
-                            of your avatar.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A malicious actor creates an automated script to
-                                cross-reference the exact time your stream goes live with the activity status of
-                                thousands of public Discord accounts. If your personal IRL Discord account consistently
-                                goes "Do Not Disturb" at the exact second the VTuber goes live over a period of 30 days,
-                                they have found your real identity through metadata correlation alone.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Perfect Compartmentalization:</strong> The golden
-                            rule of V-Sec is complete, physical and digital separation. The data associated with the
-                            "Real You" must never exist on the same hardware, browser, or account as the "VTuber You".
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A VTuber uses the same Windows login for college work and
-                                streaming. During a stream, a Windows background notification pops up saying:
-                                <em>"OneDrive Sync Failed: C:\Users\JaneSmith\University\..."</em>. The real name is
-                                broadcasted to 5,000 viewers instantly.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: BASIC - EMAIL -->
-            <section id="sec-basic_email" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">1. Email & Communications Isolation</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Your personal email is tied to data breaches, your phone number, and your real name. It must
-                        never touch your VTuber accounts.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Encrypted Providers:</strong> Create a fresh,
-                            dedicated email using a privacy-respecting provider like <a href="https://proton.me/"
-                                target="_blank" class="cyber-link">ProtonMail</a> or <a href="https://tuta.com/"
-                                target="_blank" class="cyber-link">Tuta</a>. Do NOT use Gmail for your root recovery
-                            accounts.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You use your personal Gmail to register for a game you
-                                stream. That game suffers a data breach. Attackers plug your leaked Gmail into a
-                                password recovery tool, see the masked recovery phone number (ending in -45),
-                                cross-reference it with a leak from a local pizza chain you ordered from IRL, and
-                                instantly uncover your home address.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Email Aliasing:</strong> Never give out your root
-                            email. Use services like <a href="https://simplelogin.io/" target="_blank"
-                                class="cyber-link">SimpleLogin</a> or <a href="https://addy.io/" target="_blank"
-                                class="cyber-link">Addy.io</a> to generate unique, burnable email addresses for every
-                            service (e.g., <code>twitter_vsec@alias.com</code>). If an alias is spammed or breached, you
-                            simply turn it off.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You put a business email in your Twitter bio. A malicious
-                                actor signs that email up for thousands of newsletters, causing a Denial of Service
-                                attack on your inbox. If you used an alias, you simply click "Deactivate" in
-                                SimpleLogin, and the spam instantly stops without affecting your main accounts.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Burner Phone Numbers:</strong> SMS 2FA is
-                            fundamentally broken and vulnerable to SIM swapping. If a service forces you to provide a
-                            phone number, use a VoIP number like <a href="https://mysudo.com/" target="_blank"
-                                class="cyber-link">MySudo</a>, <a href="https://voice.google.com/" target="_blank"
-                                class="cyber-link">Google Voice</a> (on a burner account), or buy a cheap prepaid SIM
-                            card like <a href="https://www.mintmobile.com/" target="_blank" class="cyber-link">Mint
-                                Mobile</a> paid for in cash.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> An attacker pays an underground service $50 to bribe a
-                                corrupt telecom employee to transfer your real phone number to the attacker's SIM card.
-                                The attacker then hits "Forgot Password" on your Twitter, receives the SMS 2FA code, and
-                                steals your VTuber account permanently.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: BASIC - BROWSER -->
-            <section id="sec-basic_browser" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. Browser & Web Navigation</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Browsers track hardware IDs, canvas fingerprints, and cookies. If you check your personal
-                        banking and VTuber Twitter in the same browser, ad networks will link the two identities.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Browser Separation:</strong> Use entirely
-                            different browsers. Personal life on Chrome/Edge, VTuber life on a hardened browser like <a
-                                href="https://brave.com/" target="_blank" class="cyber-link">Brave</a>, <a
-                                href="https://mullvad.net/en/browser" target="_blank" class="cyber-link">Mullvad
-                                Browser</a>, or <a href="https://librewolf.net/" target="_blank"
-                                class="cyber-link">LibreWolf</a>.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You accidentally click a link a viewer sends in chat while on
-                                your personal Chrome profile. A hidden script doesn't just log your IP, but it logs your
-                                hardware canvas fingerprint and existing session cookies. An ad network correlates your
-                                VTuber Twitch session with your personal Amazon shopping cart session, bridging the gap
-                                between your identities.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Multi-Account Containers:</strong> If using
-                            Firefox, install the <em>Multi-Account Containers</em> extension. Keep your YouTube,
-                            Twitter, and Email strictly separated into isolated color-coded tabs so cookies cannot
-                            cross-pollinate.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You log into your VTuber Twitter. Without containers,
-                                Twitter's background trackers follow you as you open a new tab and log into your
-                                personal university portal, linking the metadata of both accounts on their backend
-                                servers.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Essential Extensions:</strong> Install <a
-                                href="https://ublockorigin.com/" target="_blank" class="cyber-link">uBlock Origin</a>
-                            (blocks tracking scripts and malicious IP grabbers) and CanvasBlocker (fakes your hardware
-                            fingerprint).
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A malicious actor buys a seemingly innocent ad slot on a
-                                forum you visit. The ad contains a zero-pixel image that executes a script to map your
-                                local network. uBlock Origin terminates the script before the ad even renders on your
-                                screen.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Search Engines:</strong> Stop using Google for
-                            VTuber-related searches. Use <a href="https://duckduckgo.com/" target="_blank"
-                                class="cyber-link">DuckDuckGo</a> or Brave Search to prevent search history correlation.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You Google a very specific, local medical clinic, and then
-                                later Google "How to set up OBS studio". Google's profile algorithm combines these
-                                interests. Later, a targeted YouTube ad pops up on your stream showing the local clinic,
-                                revealing your city to your viewers.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: BASIC - CREDS -->
-            <section id="sec-basic_creds" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">3. Account & Credential Management</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Your passwords and auth tokens are the final line of defense against account takeovers.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Password Managers:</strong> NEVER use the password
-                            manager built into your browser. Use a dedicated, zero-knowledge manager like <a
-                                href="https://bitwarden.com/" target="_blank" class="cyber-link">Bitwarden</a>, <a
-                                href="https://1password.com/" target="_blank" class="cyber-link">1Password</a>, or <a
-                                href="https://keepassxc.org/" target="_blank" class="cyber-link">KeePassXC</a>.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You reuse your personal Spotify password for your VTuber
-                                Twitter account. Spotify suffers a data breach. Attackers employ "credential stuffing
-                                bots" that automatically test leaked passwords against thousands of sites. Your VTuber
-                                Twitter is instantly hijacked.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Hardware Security Keys:</strong> The ultimate
-                            defense against phishing. Buy two <a href="https://www.yubico.com/" target="_blank"
-                                class="cyber-link">YubiKeys</a> (one primary, one backup stored in a safe). Register
-                            them to your Google, Twitter, and Password Manager.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You receive a highly convincing email pretending to be a
-                                Twitch sponsorship. You click the link, enter your password, and type in your 6-digit
-                                authenticator code. The attacker's bot instantly forwards those to the real Twitch,
-                                bypassing your 2FA. A YubiKey stops this completely because the physical key
-                                cryptographically verifies the actual domain URL, rejecting the fake site automatically.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Authenticator Apps (TOTP):</strong> For sites that
-                            don't support YubiKeys, use an offline authenticator app like <a
-                                href="https://getaegis.app/" target="_blank" class="cyber-link">Aegis</a> (Android) or
-                            <a href="https://ente.io/auth/" target="_blank" class="cyber-link">Ente Auth</a>
-                            (Cross-platform).
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You use Authy for 2FA. Authy's cloud infrastructure is
-                                breached by hackers, exposing millions of 2FA seeds. Attackers clone your tokens and
-                                gain access to your accounts. Offline managers like Aegis ensure the private keys never
-                                leave your physical device.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: BASIC - STREAM -->
-            <section id="sec-basic_stream" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">4. Stream Environment & Content Hygiene
-                    </h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        A momentary slip-up on stream can reveal your IP, real name, or location.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Dedicated Windows User:</strong> Create a separate
-                            Windows User Account strictly for streaming. Do not log into your personal Microsoft
-                            account.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> While streaming, your mother sends you an iMessage or
-                                WhatsApp text saying, "Hi honey, I left the lasagna in the fridge. Love, Mom." A desktop
-                                notification pops up over your game, revealing your real first name to thousands of
-                                people.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">OBS Window Capture ONLY:</strong> Never use
-                            "Display Capture." Always capture specific application windows.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You are playing a horror game on "Display Capture" and the
-                                game crashes to the desktop. Your desktop background is a photo of you and your
-                                significant other, and your tax return PDF is sitting on the desktop. The entire stream
-                                sees it. Window Capture ensures they only see a black screen upon crash.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Scrubbing Metadata (EXIF):</strong> Every picture
-                            taken with a smartphone contains hidden GPS coordinates. Before posting "handcams" or pet
-                            photos, run them through tools like <a href="https://exiftool.org/" target="_blank"
-                                class="cyber-link">ExifTool</a> or mobile apps like <a
-                                href="https://f-droid.org/en/packages/de.kaffesorn.imagepipe/" target="_blank"
-                                class="cyber-link">ImagePipe</a> to strip the metadata.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You take a cute photo of your cat to post on your VTuber
-                                Twitter account to celebrate 10k followers. You forget to scrub the EXIF data. The raw
-                                image file contains the exact longitude and latitude of your bedroom where the photo was
-                                taken, leading stalkers directly to your front door.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: BASIC - FINANCE -->
-            <section id="sec-basic_finance" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">5. Financial Anonymity & Real World</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Handling money as a VTuber is the fastest way to leak your real name.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">The PayPal Trap (CRITICAL):</strong> Standard
-                            PayPal accounts reveal your legal name. Upgrading to a PayPal Business Account allows you to
-                            use a DBA, but is still risky without an LLC.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You commission an artist for a new VTuber overlay and pay
-                                them via a personal PayPal account. When they receive the payment, PayPal displays
-                                "Payment received from Jane Doe". The artist now has your legal name. If they get
-                                hacked, or turn out to be malicious, your identity is exposed.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Virtual Credit Cards:</strong> Never use your real
-                            debit card to pay for VTuber assets. Use <a href="https://privacy.com/" target="_blank"
-                                class="cyber-link">Privacy.com</a> (US) or <a href="https://www.revolut.com/"
-                                target="_blank" class="cyber-link">Revolut</a> (EU) to generate burner cards with fake
-                            billing names.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You buy a cheap Unity asset from a shady third-party
-                                marketplace using your real credit card. The site's database is compromised. Not only
-                                are your card details stolen, but your billing name and home address are dumped on a
-                                public hacker forum.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Crypto & Monero:</strong> For extreme anonymity in
-                            commissions, cryptocurrency can be used. If privacy is paramount, utilize <a
-                                href="https://www.getmonero.org/" target="_blank" class="cyber-link">Monero (XMR)</a>,
-                            which obscures wallet addresses and transaction amounts.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You pay a rigger in Bitcoin. Because Bitcoin is a public
-                                ledger, a malicious fan finds the transaction ID, traces the wallet backward to an
-                                exchange like Coinbase, and uses social engineering to trick customer support into
-                                revealing the identity tied to the wallet. Monero prevents this entirely via ring
-                                signatures.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: BASIC - SOCIAL -->
-            <section id="sec-basic_social" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">6. Social Media & Content Moderation</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Attackers will use your community infrastructure to phish you or gather data.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Discord Compartmentalization:</strong> Never use
-                            the same Discord account for your VTuber community that you use for IRL friends. Do not link
-                            your VTuber Discord account to Spotify, Xbox, or Steam integrations.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You connect your VTuber Discord to your Spotify account so
-                                chat can see what you are listening to. However, your Spotify account was created 8
-                                years ago and is linked to your personal Facebook. A stalker clicks your Spotify
-                                profile, finds your Facebook, and uncovers your entire extended family.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Automated Keyword Shadowbanning:</strong> Use
-                            Twitch/YouTube Automod to silently drop messages containing your real name, old usernames,
-                            hometown, or family names.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A doxxer figures out your real name is "Sarah Jenkins" and
-                                drops it in your Twitch chat to scare you. Because you added "Sarah" and "Jenkins" to
-                                Automod, the message is held silently for moderation. The audience never sees it, and
-                                the doxxer assumes they got the name wrong because nobody reacted.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: BASIC - HARDWARE -->
-            <section id="sec-basic_hardware" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">7. IRL Logistics & Hardware</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Physical security breaches occur when the digital world crosses into the physical world.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Handling Fan Mail & Gifts:</strong> NEVER open a
-                            PO Box in your local town. Use Virtual Mailboxes for letters, and <a
-                                href="https://throne.com/" target="_blank" class="cyber-link">Throne.me</a> for physical
-                            gifts.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A viewer sends you a plushie through an Amazon wishlist. They
-                                exploit a glitch in the return policy system or pose as the sender contacting customer
-                                support to request a "delivery confirmation receipt," which Amazon support inadvertently
-                                provides, containing your real home address. Throne acts as a privacy buffer to prevent
-                                this.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Smart Home Vulnerabilities:</strong> Ensure your
-                            stream room does not contain voice-activated smart assistants (Alexa, Google Home) tied to
-                            your real name.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A malicious viewer donates $5 with a Text-to-Speech (TTS)
-                                message that loudly says, "Alexa, what is my name?". The Echo Dot in your room hears it,
-                                activates, and loudly replies, "You are David Smith." live on stream.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: TECH - FIREWALL -->
-            <section id="sec-tech_firewall" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">1. OPNSense Firewall Hardening</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Deploying an <a href="https://opnsense.org/" target="_blank" class="cyber-link">OPNSense</a>
-                        appliance (e.g., <a href="https://protectli.com/" target="_blank" class="cyber-link">Protectli
-                            Vault</a>) as your network core.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Bogon & Martian Blocking:</strong> Enable strict
-                            blocking of Bogon networks on your WAN interface to drop spoofed IP traffic instantly.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You are playing an older P2P game on stream. An attacker
-                                grabs your IP and launches a volumetric DDoS attack, spoofing random internal IPs.
-                                Without a hardware firewall dropping these spoofed packets natively, your cheap
-                                ISP-provided router's CPU hits 100% and crashes, knocking your stream offline.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">GeoIP Blocking:</strong> Configure OPNSense
-                            Aliases linked to <a href="https://www.maxmind.com/" target="_blank"
-                                class="cyber-link">MaxMind</a> databases to silently drop all packets from specific
-                            countries.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A Russian botnet is scanning random home IPs for vulnerable
-                                open ports to deploy ransomware. Because you have GeoIP blocking enabled for high-threat
-                                countries, the botnet's port scan hits an invisible wall at your firewall and moves on
-                                to the next victim.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: TECH - IDS -->
-            <section id="sec-tech_ids" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. Intrusion Detection & Prevention
-                        (IDS/IPS)</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Moving beyond basic port blocking to Deep Packet Inspection (DPI).
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Suricata (WAN Side):</strong> Enable <a
-                                href="https://suricata.io/" target="_blank" class="cyber-link">Suricata</a> in IPS mode
-                            on your WAN.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> An attacker attempts to exploit a known vulnerability in a
-                                service you run. Suricata analyzes the actual payload inside the packet, matches it
-                                against the Emerging Threats database, and drops the connection instantly before it
-                                reaches the vulnerable application.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Zenarmor (LAN Side):</strong> Install the <a
-                                href="https://www.zenarmor.com/" target="_blank" class="cyber-link">Zenarmor</a>
-                            Next-Generation Firewall plugin to inspect Layer 7 (Application Layer) traffic.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You download a seemingly innocent VTuber asset (like a new
-                                stream overlay widget) that secretly contains a trojan. When executed, the trojan
-                                attempts to connect to an attacker's command-and-control server. Zenarmor detects the
-                                unauthorized layer-7 outbound connection, kills the process network access, and alerts
-                                you.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: TECH - VLANS -->
-            <section id="sec-tech_vlans" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">3. Network Segmentation (VLANs)</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        The "4-Zone Rule." If an attacker breaches a smart lightbulb, they shouldn't be able to reach
-                        your streaming PC.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">VLAN Segmentation Logic:</strong> Isolate Stream
-                            Rig, Personal Devices, and IoT into separate virtual networks.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> Your roommate downloads a sketchy file, or a hacker finds an
-                                exploit in your cheap smart fridge. Because they share the same "flat" network as your
-                                streaming PC, the attacker pivots from the fridge directly into your unprotected Windows
-                                file shares. VLANs isolate the fridge so it physically cannot route traffic to your
-                                streaming rig.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: TECH - VPN -->
-            <section id="sec-tech_vpn" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">4. VPN Tunnels & DDoS Mitigation</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Standard VPNs introduce too much lag for competitive gaming and can be bypassed. We build our
-                        own.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Site-to-Site WireGuard:</strong> Rent a cheap VPS
-                            from <a href="https://us.ovhcloud.com/" target="_blank" class="cyber-link">OVH</a> or <a
-                                href="https://www.linode.com/" target="_blank" class="cyber-link">Linode</a> and
-                            configure OPNSense to create a persistent <a href="https://www.wireguard.com/"
-                                target="_blank" class="cyber-link">WireGuard</a> tunnel. Route only high-risk game
-                            traffic through it.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You stream a highly competitive game where IP pulling is
-                                common. You route your game traffic through the WireGuard tunnel to an OVH VPS. When an
-                                angry opponent boots your IP, they are actually attacking the OVH data center, which
-                                scrubs the 500Gbps attack effortlessly while your home network remains totally
-                                unaffected.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: TECH - DNS -->
-            <section id="sec-tech_dns" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">5. DNS Sinkholing & Encryption</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Preventing accidental leaks via chat links or background telemetry.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Network-Level Ad Blocking:</strong> Route all DNS
-                            requests through <a href="https://adguard.com/en/adguard-home/overview.html" target="_blank"
-                                class="cyber-link">AdGuard Home</a> or <a href="https://pi-hole.net/" target="_blank"
-                                class="cyber-link">Pi-Hole</a>. Use aggressive blocklists.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A viewer links an image in your Discord that is actually a
-                                disguised IP logger hosted on a known tracking domain. Because your entire network's DNS
-                                requests are filtered through Pi-Hole with an aggressive blocklist, the DNS request to
-                                the logger fails to resolve, protecting your IP without you doing a thing.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: TECH - OSINT -->
-            <section id="sec-tech_osint" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">6. Self-OSINT & Threat Modeling</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        To defend yourself, you must think like an attacker. Regularly try to dox yourself.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Sherlock & OSINT Framework:</strong> Run the
-                            Python tool <a href="https://github.com/sherlock-project/sherlock" target="_blank"
-                                class="cyber-link">Sherlock</a> against your VTuber usernames.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You used your VTuber name to register a Neopets account 10
-                                years ago. Sherlock finds it. You realize that Neopets account has your real birthday
-                                and location listed publicly, allowing you to delete it before an attacker finds it.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Data Broker Takedowns:</strong> Use services like
-                            <a href="https://joindeleteme.com/" target="_blank" class="cyber-link">DeleteMe</a>, <a
-                                href="https://incogni.com/" target="_blank" class="cyber-link">Incogni</a>, or <a
-                                href="https://www.kanary.com/" target="_blank" class="cyber-link">Kanary</a> to
-                            aggressively issue legal takedown requests.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You bought a house or registered to vote. LexisNexis scraped
-                                the county property records and sold it to Whitepages. A stalker who found your real
-                                name now just has to Google it to find your home address. Automated data broker removal
-                                forces these companies to scrub your records constantly.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: INTEL - TOOLKIT -->
-            <section id="sec-intel_toolkit" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">1. The Attacker's Toolkit (OSINT)</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        To defend yourself, you must know what tools malicious actors (who refer to themselves as
-                        "researchers") use to track you.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Advanced Reverse Image Search:</strong> Attackers
-                            use <a href="https://yandex.com/images/" target="_blank" class="cyber-link">Yandex</a> and
-                            specialized anime/art searchers like <a href="https://saucenao.com/" target="_blank"
-                                class="cyber-link">SauceNAO</a>, <a href="https://iqdb.org/" target="_blank"
-                                class="cyber-link">IQDB</a>, and <a href="https://trace.moe/" target="_blank"
-                                class="cyber-link">Trace.moe</a>.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You post a photo of a coffee cup on your personal private
-                                Instagram, and later post a very similar photo of your desk setup on your VTuber
-                                Twitter. An attacker uses Yandex's terrifyingly good AI image matching to connect the
-                                wood grain pattern of your desk and the specific coffee cup, linking your two accounts.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Image Upscaling:</strong> Attackers run blurry
-                            leaked thumbnails through AI upscalers like <a href="http://waifu2x.udp.jp/" target="_blank"
-                                class="cyber-link">Waifu2x</a> to enhance the image enough for facial recognition to
-                            trigger.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You catch a 1-second reflection of your face in a spoon on
-                                stream. The resolution is too low for human eyes to make out features. An attacker runs
-                                the frame through Waifu2x, restores the facial geometry, and plugs it into facial
-                                recognition software to find your real Facebook page.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Username Enumeration:</strong> Attackers use tools
-                            like <a href="https://whatsmyname.app/" target="_blank"
-                                class="cyber-link">WhatsMyName.app</a> to instantly scan hundreds of websites to find
-                            linked personal accounts.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You used a unique handle for your VTuber account. WhatsMyName
-                                discovers that the exact same handle was used on a niche knitting forum in 2012, where
-                                you introduced yourself with your real first and last name.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Rapid Archiving:</strong> Attackers use <a
-                                href="https://www.httrack.com/" target="_blank" class="cyber-link">HTTrack</a> to scrape
-                            and archive your entire profile locally before you can hit delete.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You accidentally tweet a photo showing a piece of mail. You
-                                realize your mistake and delete the tweet 30 seconds later. However, an attacker has a
-                                script running that instantly downloaded the image the millisecond it went live. The
-                                data is compromised permanently.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: INTEL - RECON -->
-            <section id="sec-intel_recon" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. Stream Reconnaissance Tactics</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Attackers listen to streams differently than fans. They take meticulous notes to piece together
-                        a psychological and geographical profile.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Data Points of Interest:</strong> Attackers
-                            specifically listen for: Pet names, offline occupations, funerals/deaths, local news
-                            stories, and specific conventions you attended IRL. They log this data using apps like <a
-                                href="https://simplenote.com/" target="_blank" class="cyber-link">Simplenote</a>.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> During your debut stream, you casually mention that your high
-                                school's mascot was a very specific, rare animal, and that a massive thunderstorm just
-                                rolled in. An attacker uses WolframAlpha to cross-reference historical weather data from
-                                that exact time with a list of US high school mascots, instantly pinpointing your
-                                childhood town.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Defeating the "Fudge":</strong> Many VTubers
-                            "fudge" or alter stories to protect themselves. Attackers write down your story, wait
-                            months, and see if you retell it. If the details change, they know you are hiding a
-                            vulnerability.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You claim you live in New York, but later complain about a
-                                100-degree heatwave in November. Attackers flag the discrepancy, realize New York is a
-                                cover story, and begin analyzing your sleep schedule to calculate your true timezone
-                                (likely Australia or South America).
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Visual Profiling:</strong> Attackers use rapid
-                            screenshot tools like <a href="https://flameshot.org/" target="_blank"
-                                class="cyber-link">Flameshot</a> to capture and crop any momentary visual leaks.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> You accidentally Alt-Tab out of your game for a fraction of a
-                                second. The stream software captures a blur of your desktop. A watcher using Flameshot
-                                captures that exact frame, zooms in on the bottom right corner, and reads the local
-                                weather widget on your Windows taskbar.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: LEGAL - GDPR -->
-            <section id="sec-legal_gdpr" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">1. GDPR Weaponization & Privacy Law</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        Data privacy laws are your most powerful legal tools to force data brokers, scrapers, and
-                        malicious archive sites to delete your information.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">The EU GDPR:</strong> If you are an EU citizen, or
-                            if the platform storing your data operates in the EU, you are protected by the <a
-                                href="https://gdpr.eu/" target="_blank" class="cyber-link">GDPR</a>.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A malicious "VTuber Drama" wiki hosts a page detailing your
-                                real name and old high school photos. Since their server is hosted by a company in
-                                Germany, you send the host a formal GDPR Article 17 Right to Erasure request. Facing the
-                                threat of a €20 million fine from EU regulators, the host deletes the page immediately.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Enforcing Removals:</strong> Do not just ask
-                            nicely. Use templates from services like <a href="https://yourdigitalrights.org/"
-                                target="_blank" class="cyber-link">YourDigitalRights.org</a> to send legally binding,
-                            intimidating deletion notices.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> A US-based data broker refuses to remove your address,
-                                claiming public record exemption. You send a legally formatted CCPA/CPRA deletion demand
-                                on formal letterhead. The broker's automated legal compliance system flags the risk of a
-                                lawsuit and automatically purges your record.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SECTION: LEGAL - ACTION -->
-            <section id="sec-legal_action" class="section-content hidden animate-fade-in">
-                <div class="max-w-4xl">
-                    <h2 class="text-2xl font-bold mb-2 text-white glow-text">2. DMCA, Police & Legal Counsel</h2>
-                    <p class="text-blue-600 mb-8 border-b border-blue-900 pb-4">
-                        When OSINT and network security fail, you must transition to physical and legal defense
-                        mechanisms.
-                    </p>
-                    <ul class="space-y-6 text-gray-300">
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">The DMCA Dox Vector:</strong> Filing a DMCA
-                            takedown against stolen art or a doxxing site is dangerous. Standard DMCA forms require your
-                            legal name and address, which are published on the <a href="https://lumendatabase.org/"
-                                target="_blank" class="cyber-link">Lumen Database</a>.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> An art thief steals your VTuber model. You use a generic
-                                online form to submit a DMCA takedown to Twitter. Twitter complies, but legally forwards
-                                your full name, home address, and phone number (which you provided in the DMCA form)
-                                directly to the art thief, completely doxxing yourself to a malicious actor.
-                            </div>
-                        </li>
-                        <li
-                            class="relative pl-6 before:content-['>'] before:absolute before:left-0 before:text-blue-500">
-                            <strong class="text-[#00e1ff] block mb-1">Anti-Swatting Protocol:</strong> Proactively
-                            contact your local police precinct's non-emergency line to place an "Anti-Swatting Flag" on
-                            your address.
-                            <div class="scenario-box">
-                                <strong>Scenario:</strong> An attacker figures out your address and calls your local
-                                police department, claiming there is a hostage situation at your house. Because you
-                                previously set up an anti-swatting flag, the 911 dispatcher sees the warning note, calls
-                                your personal cell phone to verify your safety, and sends a single cruiser to check
-                                rather than a heavily armed SWAT team breaking down your door.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Footer Note -->
-            <div class="mt-12 pt-4 border-t border-blue-900 text-xs text-blue-800 italic">
-                Disclaimer: Security is an ongoing process, not a final destination. Regularly review your hardware,
-                update your software, and stay vigilant. // V-SEC ~ 2026.
-            </div>
-
-        </main>
-    </div>
+            </main>
+        </div>
+    </div> <!-- End of OS Interface wrapper -->
 
     <!-- Scripts for Interactivity -->
     <script>
@@ -1229,6 +1047,203 @@
         setInterval(updateTime, 1000);
         updateTime();
 
+        // --- GLOBAL AUDIO UNLOCK ---
+        let audioUnlocked = false;
+        const bgmAudio = document.getElementById('bgm-audio');
+        
+        function unlockAudioContext() {
+            if (!audioUnlocked) {
+                audioUnlocked = true;
+                bgmAudio.volume = 0; // mute momentarily to unlock silently
+                bgmAudio.play().then(() => {
+                    bgmAudio.pause();
+                    bgmAudio.currentTime = 0;
+                    bgmAudio.volume = document.getElementById('volume-slider').value; // prep user volume
+                }).catch(err => {
+                    console.log("Audio unlock requires stronger interaction:", err);
+                    audioUnlocked = false; // reset so we try again on next click
+                });
+            }
+        }
+
+        // Volume Toggle Logic with SVGs
+        const volSlider = document.getElementById('volume-slider');
+        const muteIcon = document.getElementById('mute-icon');
+
+        const svgVolHigh = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>`;
+        const svgVolLow = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+        const svgVolMute = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="1" x2="1" y2="23"></line></svg>`;
+
+        function updateVolumeIcon(vol) {
+            if (vol == 0) muteIcon.innerHTML = svgVolMute;
+            else if (vol < 0.5) muteIcon.innerHTML = svgVolLow;
+            else muteIcon.innerHTML = svgVolHigh;
+        }
+
+        volSlider.addEventListener('input', (e) => {
+            bgmAudio.volume = e.target.value;
+            updateVolumeIcon(bgmAudio.volume);
+        });
+
+        function toggleMute() {
+            if(bgmAudio.volume > 0) {
+                bgmAudio.dataset.prevVol = bgmAudio.volume;
+                bgmAudio.volume = 0;
+                volSlider.value = 0;
+                updateVolumeIcon(0);
+            } else {
+                bgmAudio.volume = bgmAudio.dataset.prevVol || 0.5;
+                volSlider.value = bgmAudio.volume;
+                updateVolumeIcon(bgmAudio.volume);
+            }
+        }
+
+        // --- EXTENDED LINUX BOOT SEQUENCE LOGIC ---
+        const initScreen = document.getElementById('init-screen');
+        const bootScreen = document.getElementById('boot-screen');
+        const bootLog = document.getElementById('boot-log');
+        const logoSplash = document.getElementById('logo-splash');
+        const osInterface = document.getElementById('os-interface');
+        
+        // Phase 0: User clicks text to Agree, unlocking audio context and starting boot
+        document.getElementById('agree-btn').addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent bubbling to body unlock
+            unlockAudioContext();
+            
+            initScreen.style.opacity = '0';
+            setTimeout(() => {
+                initScreen.style.display = 'none';
+                bootScreen.style.display = 'flex';
+                runBoot();
+            }, 500);
+        });
+
+        const bootSequence = [
+            "[    0.000000] Linux version 6.5.0-vsec-kernel (root@vsec-build) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38)",
+            "[    0.000000] Command line: BOOT_IMAGE=/vmlinuz-6.5.0 root=/dev/mapper/vsec-root ro quiet splash cryptdevice=/dev/nvme0n1p3:vsec-root",
+            "[    0.000000] BIOS-provided physical RAM map:",
+            "[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009efff] usable",
+            "[    0.000000] BIOS-e820: [mem 0x000000000009f000-0x000000000009ffff] reserved",
+            "[    0.041231] CPU: AuthenticAMD, AMD Ryzen 9 5950X 16-Core Processor",
+            "[    0.112451] secureboot: Secure boot enabled",
+            "[    0.155212] DMI: V-SEC OS Hardware Appliance, BIOS 1.4.2 11/15/2025",
+            "[    0.201411] efi: EFI v2.70 by American Megatrends",
+            "[    0.342111] smpboot: Allowing 32 CPUs, 16 hotplug CPUs",
+            "[    0.412142] ACPI: Core revision 20230628",
+            "[    0.512341] pci 0000:00:00.0: [1022:1482] type 00 class 0x060000",
+            "[    1.011241] IOMMU: Default domain type: Translated",
+            "[    1.124124] Mount-cache hash table entries: 131072 (order: 8, 1048576 bytes, linear)",
+            "[    1.512412] systemd[1]: Inserted module 'kmod'",
+            "[    2.124512] vsec_crypto_module: initialized. Enforcing AES-256-GCM.",
+            "[    2.412151] SCSI subsystem initialized",
+            "[    2.712412] usbcore: registered new interface driver usbfs",
+            "[    3.123412] NET: Registered protocol family 2",
+            "[    3.412151] tcp_listen_portaddr_hash hash table entries: 8192",
+            "[    4.124512] AppArmor: AppArmor initialized",
+            "[    5.012412] random: crng init done",
+            "[    5.512412] Loading compiled policies from /etc/vsec/policies...",
+            "[    6.124512] Mounted root (ext4 filesystem) readonly.",
+            "[    7.124124] Freeing unused kernel image (initmem) memory: 2884K",
+            "[    8.124512] Run /init as init process",
+            "[   10.412151] systemd[1]: Starting Cryptography Setup for vsec-root...",
+            "[   11.124124] systemd[1]: Reached target Local File Systems.",
+            "[   12.124512] systemd[1]: Starting Network Manager...",
+            "[   13.412151] vsec_firewall: rules compiled and loaded. Ingress dropped.",
+            "[   14.124124] vsec_telemetry_blocker: ISP probe detected. Dropping packets.",
+            "[   15.912341] mounting /dev/mapper/vsec-secure-vault...",
+            "[   16.412151] vfs_sync: attempting secure mount.",
+            "[   16.891231] ...",
+            "[   17.112412] [  ERROR  ] FATAL EXCEPTION IN VFS SYNC: UNEXPECTED KERNEL PANIC",
+            "[   17.112415] [  ERROR  ] MEMORY CORRUPTION DETECTED AT 0x0000000000000000",
+            "[   17.112420] [  ERROR  ] SYSTEM RECOVERY INITIATED..."
+        ];
+
+        let bootIndex = 0;
+        let bootTimer;
+
+        function runBoot() {
+            if (bootIndex < bootSequence.length) {
+                const line = document.createElement('div');
+                line.className = 'mb-0.5 text-[#e2e8f0]';
+                
+                let text = bootSequence[bootIndex];
+                
+                if (text.includes("[  ERROR  ]")) {
+                    line.className = 'mb-0.5 text-red-500 font-bold';
+                } else if (text.includes("V-SEC") || text.includes("vsec")) {
+                    text = text.replace(/V-SEC/g, '<span class="text-[#00e1ff] font-bold">V-SEC</span>');
+                    text = text.replace(/vsec/g, '<span class="text-[#00e1ff] font-bold">vsec</span>');
+                }
+                
+                line.innerHTML = text;
+                bootLog.appendChild(line);
+                bootIndex++;
+                
+                let delay = Math.random() * 35 + 5;
+                if (text.includes("...")) delay = 800;
+                
+                bootScreen.scrollTop = bootScreen.scrollHeight;
+                bootTimer = setTimeout(runBoot, delay); 
+            } else {
+                triggerSplash();
+            }
+        }
+
+        function triggerSplash() {
+            clearTimeout(bootTimer);
+            document.getElementById('boot-cursor').style.display = 'none';
+            
+            setTimeout(() => {
+                // Hard cut to STARK WHITE Logo Splash
+                bootScreen.style.display = 'none';
+                logoSplash.style.display = 'flex';
+                
+                setTimeout(() => {
+                    // Hard cut to animation
+                    logoSplash.style.display = 'none';
+                    playTransitionAnim();
+                }, 1500); 
+            }, 3000); 
+        }
+
+        function playTransitionAnim() {
+            const animScreen = document.getElementById('transition-anim-screen');
+            const bar = document.getElementById('anim-progress-bar');
+            animScreen.style.display = 'flex';
+
+            setTimeout(() => {
+                bar.style.transition = 'width 1.5s cubic-bezier(0.1, 0.7, 1.0, 0.1)';
+                bar.style.width = '100%';
+            }, 50);
+
+            setTimeout(() => {
+                animScreen.style.display = 'none';
+                bootOS();
+            }, 1800);
+        }
+
+        function bootOS() {
+            // 1. Play BGM out loud now that OS is ready
+            bgmAudio.play().catch(e => console.log("Final audio play failed:", e));
+
+            // 2. Reveal OS interface container
+            osInterface.style.display = 'flex';
+            
+            // 3. Trigger Hacknet UI panel flicker animations with stagger
+            const header = document.getElementById('os-header');
+            header.classList.replace('panel-hide', 'panel-blink');
+            header.classList.add('delay-1');
+
+            const sidebar = document.getElementById('os-sidebar');
+            sidebar.classList.replace('panel-hide', 'panel-blink');
+            sidebar.classList.add('delay-2');
+
+            const main = document.getElementById('os-main');
+            main.classList.replace('panel-hide', 'panel-blink');
+            main.classList.add('delay-3');
+        }
+
+        // ---------------------------
         // Navigation Logic
         const commands = {
             'intro': 'cat ./README.md',
@@ -1253,34 +1268,26 @@
         };
 
         function nav(sectionId) {
-            // Update active button state
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('btn-' + sectionId).classList.add('active');
 
-            // Typewriter effect for command output
             typeWriter(commands[sectionId], 'cmd-output', () => {
-                // Hide all sections
                 document.querySelectorAll('.section-content').forEach(sec => {
                     sec.classList.add('hidden');
                 });
-                // Show target section
                 document.getElementById('sec-' + sectionId).classList.remove('hidden');
-
-                // Scroll to top of content
-                document.getElementById('terminal-screen').scrollTop = 0;
+                document.getElementById('os-main').scrollTop = 0;
             });
         }
 
-        // Typewriter function
         function typeWriter(text, elementId, callback) {
             const el = document.getElementById(elementId);
             el.innerHTML = '';
             let i = 0;
             el.classList.add('cursor');
-
-            // Accelerated typing speed so navigation is near-instant
-            const speed = 5;
-
+            
+            const speed = 5; 
+            
             function type() {
                 if (i < text.length) {
                     el.innerHTML += text.charAt(i);
@@ -1294,5 +1301,4 @@
         }
     </script>
 </body>
-
 </html>
